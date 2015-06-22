@@ -16,3 +16,16 @@ After changing my ~/.Rprofile to include
 "options(repos = c(CRAN="http://cran.r-project.org"))"
 the second note went away for the local test 
 environment.
+
+Response to feedback:
+
+  "This runs its examples for far too long.  I stopped at..."
+    Some code from the examples were not checked because
+    I believe that they take too long to run.
+    These examples should take between 5-10 seconds.
+  
+  "Given a reference for this 'new' algorithm."
+    A reference is given in CITATION.
+    References are also supplied in the documentation
+    for appropriate functions.
+  
