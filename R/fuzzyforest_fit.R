@@ -145,13 +145,13 @@ ff <- function(X, y, Z=NULL, module_membership,
     num_features <- ncol(module)
     #TUNING PARAMETER mtry_factor
     if(CLASSIFICATION == TRUE) {
-      mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
+      mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
       if(missing(nodesize)){
         nodesize <- 1
       }
     }
     if(CLASSIFICATION == FALSE) {
-      mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
+      mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
       if(missing(nodesize)){
         nodesize <- 5
       }
@@ -183,10 +183,10 @@ ff <- function(X, y, Z=NULL, module_membership,
           module <- module[, which(names(module) %in% features)]
           num_features <- length(features)
           if(CLASSIFICATION == TRUE) {
-            mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
+            mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
           }
           if(CLASSIFICATION == FALSE) {
-            mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
+            mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
           }
           ntree <- max(num_features*ntree_factor, min_ntree)
         }
@@ -238,11 +238,11 @@ ff <- function(X, y, Z=NULL, module_membership,
   }
   current_p <- dim(final_X)[2]
   if(CLASSIFICATION == TRUE) {
-    final_mtry <- min(ceiling(select_control$mtry_factor*current_p/3),
+    final_mtry <- min(ceiling(select_control$mtry_factor*sqrt(current_p)),
                       current_p)
   }
   if(CLASSIFICATION == FALSE) {
-    final_mtry <- min(ceiling(select_control$mtry_factor*current_p),
+    final_mtry <- min(ceiling(select_control$mtry_factor*current_p/3),
                       current_p)
   }
   if(!is.null(test_features)) {

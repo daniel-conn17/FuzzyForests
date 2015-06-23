@@ -32,13 +32,13 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
   num_features <- ncol(X)
   #TUNING PARAMETER mtry_factor
   if(CLASSIFICATION == TRUE) {
-    mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
+    mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
     if(missing(nodesize)){
       nodesize <- 1
     }
   }
   if(CLASSIFICATION == FALSE) {
-    mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
+    mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
     if(missing(nodesize)){
       nodesize <- 5
     }
@@ -62,10 +62,10 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
       features <- row.names(trimmed_varlist)
       current_X <- current_X[, which(names(current_X) %in% features)]
       if(CLASSIFICATION == TRUE) {
-        mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
+        mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
       }
       if(CLASSIFICATION == FALSE) {
-        mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
+        mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
       }
       ntree <- max(num_features*ntree_factor, min_ntree)
     }
@@ -113,12 +113,25 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
                       ntree_factor, min_ntree,
                       num_processors, nodesize) {
   selection_list <- list()
+  CLASSIFICATION <- is.factor(y)
+  #TUNING PARAMETER mtry_factor
+  if(CLASSIFICATION == TRUE) {
+    mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
+    if(missing(nodesize)){
+      nodesize <- 1
+    }
+  }
+  if(CLASSIFICATION == FALSE) {
+    mtry <- min(ceiling(mtry_factor*num_features/3), num_features)
+    if(missing(nodesize)){
+      nodesize <- 5
+    }
+  }
   if(num_processors > 1) {
     cl = parallel::makeCluster(num_processors)
     doParallel::registerDoParallel(cl)
   }
   num_features <- ncol(X)
-  mtry <- min(ceiling(mtry_factor*sqrt(num_features)), dim(X)[2])
   ntree <- max(num_features*ntree_factor, min_ntree)
   target <- number_selected
   current_X <- X
@@ -132,7 +145,6 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
                                   importance = TRUE, scale = FALSE,
                                   nodesize=nodesize))
     }
-    #browser()
     if(num_processors == 1) {
       rf <- randomForest(current_X, y, ntree = ntree, mtry = mtry,
                          importance = TRUE, scale = FALSE,
@@ -152,7 +164,12 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
       features <- row.names(trimmed_varlist)
       current_X <- current_X[, which(names(current_X) %in% features)]
       num_features <- length(features)
-      mtry <- min(ceiling(mtry_factor*sqrt(num_features)), dim(current_X)[2])
+      if(CLASSIFICATION==TRUE) {
+        mtry <- min(ceiling(mtry_factor*sqrt(num_features)), dim(current_X)[2])
+        }
+      if(CLASSIFICATION==FALSE) {
+        mtry <- min(ceiling(mtry_factor*num_features/3), dim(current_X)[2])
+        }
       ntree <- max(num_features*ntree_factor, min_ntree)
     }
     else {
@@ -171,5 +188,3 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
   out <- list(feature_list, selection_list)
   return(out)
 }
-
-
