@@ -112,6 +112,7 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
 select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
                       ntree_factor, min_ntree,
                       num_processors, nodesize) {
+  num_features <- ncol(X)
   selection_list <- list()
   CLASSIFICATION <- is.factor(y)
   #TUNING PARAMETER mtry_factor
