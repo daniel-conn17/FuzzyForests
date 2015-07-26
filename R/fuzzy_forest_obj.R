@@ -160,24 +160,3 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
                     legend.title = element_blank())
   plot(imp_plot)
 }
-
-#' Relabel modules.
-#'
-#' Lets user easily re-label modules.  Modules are often labeled according to
-#' color in WGCNA.  This function allows the user to rename the modules.
-#' @param object        An object of type fuzzy_forest.
-#' @param module_labels Labels for the modules.  A data.frame
-#'                      or character matrix with first column giving
-#'                      the current name of module and second column giving
-#'                      the assigned name of each module.
-#' @note This work was partially funded by NSF IIS 1251151.
-relabel_modules <- function(object, module_labels) {
-  old_labels <- object$module_membership[, 2]
-  new_labels <- as.factor(old_labels)
-  module_labels <- module_labels[order(module_labels[, 1]), ]
-  levels(new_labels) <- module_labels[, 2]
-  new_labels <- as.character(new_labels)
-  object$module_membership[, 2] <- new_labels
-  return(object)
-}
-
