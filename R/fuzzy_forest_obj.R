@@ -94,33 +94,41 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
     ylab <- "Percentage of features in module"
   }
 
-  #allows user to re-name modules
+  #allows user to supply new names for modules
   if(!is.null(module_labels)) {
-    old_labels <- object$module_membership[, 2]
-    new_labels <- as.factor(old_labels)
+    old_labels <- object$module_membership$module
+    #module_labels should be re-ordered so that the old labels are in
+    #alphabetical order.  This is because factor(old_labels) has levels in
+    #alphabetical order. Note that the `labels` below is contains new labels.
     module_labels <- module_labels[order(module_labels[, 1]), ]
-    levels(new_labels) <- module_labels[, 2]
-    new_labels <- as.character(new_labels)
-    object$module_membership[, 2] <- new_labels
+    new_labels <- as.character(factor(old_labels, labels=module_labels[, 2]))
+    object$module_membership$module <- new_labels
 
-    select_mods <- as.factor(object$feature_list[, 3])
-    select_key <- module_labels[which(module_labels[, 1] %in%
+    #Now module labels need to be changed for the table of variable importances.
+    select_mods <- as.factor(object$feature_list$module_membership)
+    select_module_table <- module_labels[which(module_labels[, 1] %in%
                                         levels(select_mods)), ,drop=FALSE]
+
+    #This line of code may be slightly dangerous depending on where "." is.
+    #It should be ok because after removing "." the remaining levels are in
+    #alphabetical order.
     if( "." %in% levels(select_mods)) {
-      levels(select_mods)[-1] <- select_key[, 2]
+      dot_index <- which(levels(select_mods) == ".")
+      levels(select_mods)[-dot_index] <- select_module_table[, 2]
       }
       else {
-        levels(select_mods) <- select_key[, 2]
+        levels(select_mods) <- select_module_table[, 2]
       }
-      object$feature_list[, 3] <- as.character(select_mods)
+      object$feature_list$module_membership <- as.character(select_mods)
   }
-  mods <- object$module_membership[, 2]
+  mods <- object$module_membership$module
   mod_length <- length(mods)
   mod_tab <- table(mods)
   mod_name <- names(mod_tab)
   feature_list <- object$feature_list$module_membership
-  #this line is here in the case that some covariates are not in a module
+  #This line is here in the case that some covariates are not in a module
   mod_feature_list <- feature_list[feature_list != "."]
+  #Table showing how many important features are in each selected module.
   imp_feature_tab <- table(mod_feature_list)
   imp_names <- names(imp_feature_tab)
   feature_tab <- rep(0, length(mod_tab))
@@ -137,7 +145,6 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
   pct_type <- rep(c("% Unimportant", "% Important"), each=length(mod_tab))
   importance_pct <- data.frame(Module=mod_name, Status=pct_type,
                                Percentage=pct)
-
   #test whether labels are numeric
   #reorder the labels if they are numeric
   num_mods <- suppressWarnings(as.numeric(object$module_membership[, 2]))
@@ -147,7 +154,7 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
     levels(importance_pct[, 1]) <- sort(unique(num_mods))
   }
 
-  #this is a work-around to get rid of some notes in R CMD Check
+  #this is a work-around to get rid of notes in R CMD Check
   #Probably a better way to address the issue
   Module <- NULL
   Percentage <- NULL
