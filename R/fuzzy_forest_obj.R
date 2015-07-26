@@ -93,6 +93,7 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
   if(is.null(ylab)) {
     ylab <- "Percentage of features in module"
   }
+
   #allows user to re-name modules
   if(!is.null(module_labels)) {
     old_labels <- object$module_membership[, 2]
@@ -136,9 +137,25 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
   pct_type <- rep(c("% Unimportant", "% Important"), each=length(mod_tab))
   importance_pct <- data.frame(Module=mod_name, Status=pct_type,
                                Percentage=pct)
+
+  #test whether labels are numeric
+  #reorder the labels if they are numeric
+  num_mods <- suppressWarnings(as.numeric(object$module_membership[, 2]))
+  num_test <- sum(is.na(num_mods))
+  if(num_test == 0) {
+    importance_pct[, 1] <- as.factor(importance_pct[, 1])
+    levels(importance_pct[, 1]) <- sort(unique(num_mods))
+  }
+
+  #this is a work-around to get rid of some notes in R CMD Check
+  #Probably a better way to address the issue
+  Module <- NULL
+  Percentage <- NULL
+  Status <- NULL
+  ###############
   imp_plot <- ggplot(importance_pct, aes(x=Module, y=Percentage, fill=Status)) +
               geom_bar(stat="identity") +
-              ggtitle("Percentages of Important Features Within Modules") +
+              ggtitle(main) + labs(x = xlab, y = ylab) +
               theme(plot.title = element_text(lineheight=.8, face="bold"),
                     legend.title = element_blank())
   plot(imp_plot)
