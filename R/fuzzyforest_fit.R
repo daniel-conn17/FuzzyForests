@@ -100,14 +100,14 @@ ff <- function(X, y, Z=NULL, module_membership,
   if(!is.null(Z)) {
     if (!is.data.frame(Z)) {
       stop("Z must be a data.frame.",
-           call. = FALSE)
+           call. = TRUE)
     }
   }
-  if (!(is.vector(y) || is.factor(y))) {
-    stop("y must be vector or factor")
+  if (!(is.vector(y, mode = "numeric") || is.factor(y))) {
+    stop("y must be a numeric vector or factor")
   }
   if(!is.data.frame(X)) {
-    stop("X must be a data.frame.", call. = FALSE)
+    stop("X must be a data.frame.", call. = TRUE)
   }
   CLASSIFICATION <- is.factor(y)
   if(CLASSIFICATION == TRUE) {
