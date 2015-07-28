@@ -124,9 +124,12 @@ ff <- function(X, y, Z=NULL, module_membership,
   select_control <-  select_params
   module_list <- unique(module_membership)
   if(num_processors > 1) {
-    cl = parallel::makeCluster(num_processors)
-    doParallel::registerDoParallel(cl)
-    on.exit(parallel::stopCluster(cl))
+    cl = makeCluster(num_processors)
+    assign(".fuzzyforestparallelCluster", cl, pos = ".GlobalEnv")
+    clusterCall(cl, library, package = "randomForest", character.only = TRUE)
+    registerDoParallel(cl)
+    on.exit(try( stopCluster(get(".fuzzyforestparallelCluster",
+                                 pos = ".GlobalEnv")), silent = TRUE))
   }
   survivors <- vector('list', length(module_list))
   drop_fraction <- screen_control$drop_fraction

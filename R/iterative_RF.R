@@ -27,8 +27,6 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
                          ntree_factor = 10, min_ntree=5000,
                          num_processors = 1, nodesize) {
   CLASSIFICATION <- is.factor(y)
-  cl = parallel::makeCluster(num_processors)
-  doParallel::registerDoParallel(cl)
   num_features <- ncol(X)
   #TUNING PARAMETER mtry_factor
   if(CLASSIFICATION == TRUE) {
@@ -129,8 +127,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
     }
   }
   if(num_processors > 1) {
-    cl = parallel::makeCluster(num_processors)
-    doParallel::registerDoParallel(cl)
+    #do nothing for now; hope that that the cluster from ff is used
   }
   num_features <- ncol(X)
   ntree <- max(num_features*ntree_factor, min_ntree)
@@ -184,7 +181,11 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
     }
   }
   if(num_processors > 1) {
-    parallel::stopCluster(cl)
+    unregister <- function() {
+      env <- foreach:::.foreachGlobals
+      rm(list=ls(name=env), pos=env)
+    }
+    unregister()
   }
   out <- list(feature_list, selection_list)
   return(out)
