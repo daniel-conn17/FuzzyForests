@@ -124,11 +124,11 @@ ff <- function(X, y, Z=NULL, module_membership,
   select_control <-  select_params
   module_list <- unique(module_membership)
   if(num_processors > 1) {
-    cl = makeCluster(num_processors)
+    cl = parallel::makeCluster(num_processors)
     assign(".fuzzyforestparallelCluster", cl, pos = ".GlobalEnv")
-    clusterCall(cl, library, package = "randomForest", character.only = TRUE)
-    registerDoParallel(cl)
-    on.exit(try( stopCluster(get(".fuzzyforestparallelCluster",
+    parallel::clusterCall(cl, library, package = "randomForest", character.only = TRUE)
+    doParallel::registerDoParallel(cl)
+    on.exit(try(parallel::stopCluster(get(".fuzzyforestparallelCluster",
                                  pos = ".GlobalEnv")), silent = TRUE))
   }
   survivors <- vector('list', length(module_list))
