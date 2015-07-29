@@ -45,12 +45,10 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
   target <- ceiling(num_features * keep_fraction)
   current_X <- X
   while (num_features >= target){
-    rf = `%dopar%`(foreach(ntree = rep(ntree/num_processors, num_processors)
-                           , .combine = combine, .packages = 'randomForest'),
-                   #second argument to '%dopar%'
-                   randomForest(current_X , y, ntree = ntree, mtry = mtry,
-                                importance = TRUE, scale = FALSE,
-                                nodesize=nodesize))
+    rf = foreach(ntree = rep(ntree/num_processors, num_processors),
+                 .combine = combine, .packages = 'randomForest') %dorng% {
+                 randomForest(X , y, ntree = ntree, mtry = mtry,
+                 importance = TRUE, scale = FALSE, nodesize=nodesize) }
     var_importance <- importance(rf, type=1)
     var_importance <- var_importance[order(var_importance[, 1],
                                            decreasing=TRUE), ,drop=FALSE]
