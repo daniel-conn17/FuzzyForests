@@ -132,7 +132,6 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
   target <- number_selected
   current_X <- X
   i <- 1
-  browser()
   while (num_features >= target){
     if(num_processors > 1) {
       rf = foreach(ntree = rep(ntree/num_processors, num_processors),
@@ -176,7 +175,6 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
                                            stringsAsFactors=FALSE)
       names(selection_list[[i]]) <- c("feature_name", "variable_importance")
     }
-    browser()
   }
   if(num_processors > 1) {
     unregister <- function() {

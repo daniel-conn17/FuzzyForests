@@ -128,7 +128,7 @@ ff <- function(X, y, Z=NULL, module_membership,
     assign(".fuzzyforestparallelCluster", cl, pos = ".GlobalEnv")
     parallel::clusterCall(cl, library, package = "randomForest", character.only = TRUE)
     doParallel::registerDoParallel(cl)
-    on.exit(try(parallel::stopCluster(get(".fuzzyforestparallelCluster",
+    on.exit(try( parallel::stopCluster(get(".fuzzyforestparallelCluster",
                                  pos = ".GlobalEnv")), silent = TRUE))
   }
   survivors <- vector('list', length(module_list))
@@ -166,9 +166,9 @@ ff <- function(X, y, Z=NULL, module_membership,
     while (num_features >= target){
       if(num_processors > 1) {
         rf = foreach(ntree = rep(ntree/num_processors, num_processors),
-              .combine = combine, .packages = 'randomForest') %dorng% {
-               randomForest(X , y, ntree = ntree, mtry = mtry,
-                importance = TRUE, scale = FALSE, nodesize=nodesize) }
+                   .combine = combine, .packages = 'randomForest') %dorng% {
+                   randomForest(module, y, ntree = ntree, mtry = mtry,
+                   importance = TRUE, scale = FALSE, nodesize=nodesize) }
       }
       if(num_processors == 1) {
         rf <- randomForest(module, y, ntree = ntree, mtry = mtry,
@@ -182,7 +182,7 @@ ff <- function(X, y, Z=NULL, module_membership,
       if(num_features - reduction > target) {
           trimmed_varlist <- var_importance[1:(num_features - reduction), ,drop=FALSE]
           features <- row.names(trimmed_varlist)
-          module <- module[, which(names(module) %in% features), drop=FALSE]
+          module <- module[, which(names(module) %in% features)]
           num_features <- length(features)
           if(CLASSIFICATION == TRUE) {
             mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
@@ -203,7 +203,6 @@ ff <- function(X, y, Z=NULL, module_membership,
           survivors[[i]][, 2] <- as.numeric(as.character(survivors[[i]][, 2]))
         }
     }
-    browser()
   }
   survivor_list <- survivors
   names(survivor_list) <- module_list
@@ -218,7 +217,6 @@ ff <- function(X, y, Z=NULL, module_membership,
   select_args <- list(X_surv, y, num_processors, nodesize)
   select_args <- c(select_args, select_control)
   names(select_args)[1:4] <- c("X", "y", "num_processors", "nodesize")
-  browser()
   select_results <- do.call("select_RF", select_args)
   final_list <- select_results[[1]]
   selection_list <- select_results[[2]]
@@ -251,7 +249,7 @@ ff <- function(X, y, Z=NULL, module_membership,
   }
   if(!is.null(test_features)) {
     test_features <- test_features[, which(names(test_features) %in%
-                                      names(final_X)), drop=FALSE]
+                                      names(final_X))]
   }
   final_rf <- randomForest(x=final_X, y=y, mtry=final_mtry, ntree=final_ntree,
                            importance=TRUE, nodesize=nodesize,
