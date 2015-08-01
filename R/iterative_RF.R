@@ -45,12 +45,10 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
   target <- ceiling(num_features * keep_fraction)
   current_X <- X
   while (num_features >= target){
-    rf = `%dopar%`(foreach(ntree = rep(ntree/num_processors, num_processors)
-                           , .combine = combine, .packages = 'randomForest'),
-                   #second argument to '%dopar%'
-                   randomForest(current_X , y, ntree = ntree, mtry = mtry,
-                                importance = TRUE, scale = FALSE,
-                                nodesize=nodesize))
+    rf = foreach(ntree = rep(ntree/num_processors, num_processors),
+                 .combine = combine, .packages = 'randomForest') %dorng% {
+                 randomForest(X , y, ntree = ntree, mtry = mtry,
+                 importance = TRUE, scale = FALSE, nodesize=nodesize) }
     var_importance <- importance(rf, type=1)
     var_importance <- var_importance[order(var_importance[, 1],
                                            decreasing=TRUE), ,drop=FALSE]
@@ -58,7 +56,7 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
     if(num_features - reduction > target) {
       trimmed_varlist <- var_importance[1:(num_features - reduction), ,drop=FALSE]
       features <- row.names(trimmed_varlist)
-      current_X <- current_X[, which(names(current_X) %in% features)]
+      current_X <- current_X[, which(names(current_X) %in% features), drop=FALSE]
       if(CLASSIFICATION == TRUE) {
         mtry <- min(ceiling(mtry_factor*sqrt(num_features)), num_features)
       }
@@ -136,12 +134,10 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
   i <- 1
   while (num_features >= target){
     if(num_processors > 1) {
-      rf = `%dopar%`(foreach(ntree = rep(ntree/num_processors, num_processors)
-                             , .combine = combine, .packages = 'randomForest'),
-                     #second argument to '%dopar%'
-                     randomForest(current_X , y, ntree = ntree, mtry = mtry,
-                                  importance = TRUE, scale = FALSE,
-                                  nodesize=nodesize))
+      rf = foreach(ntree = rep(ntree/num_processors, num_processors),
+                   .combine = combine, .packages = 'randomForest') %dorng% {
+                   randomForest(X , y, ntree = ntree, mtry = mtry,
+                   importance = TRUE, scale = FALSE, nodesize=nodesize) }
     }
     if(num_processors == 1) {
       rf <- randomForest(current_X, y, ntree = ntree, mtry = mtry,
@@ -160,7 +156,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
     if(num_features - reduction > target) {
       trimmed_varlist <- var_importance[1:(num_features - reduction), ]
       features <- row.names(trimmed_varlist)
-      current_X <- current_X[, which(names(current_X) %in% features)]
+      current_X <- current_X[, which(names(current_X) %in% features), drop=FALSE]
       num_features <- length(features)
       if(CLASSIFICATION==TRUE) {
         mtry <- min(ceiling(mtry_factor*sqrt(num_features)), dim(current_X)[2])

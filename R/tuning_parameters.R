@@ -17,7 +17,7 @@
 #'                          set to p.
 #'
 #' @param ntree_factor      A number greater than 1.  \code{ntree} for each
-#'                          random is \code{ntree_factor} times the number
+#'                          random forest is \code{ntree_factor} times the number
 #'                          of features.  For each random forest, \code{ntree}
 #'                          is set to \code{max}(\code{min_ntree},
 #'                          \code{ntree_factor}*p).
@@ -70,7 +70,7 @@ screen_control <- function(drop_fraction=.25, keep_fraction=.05,
 #'                          of these numbers is greater than p, \code{mtry} is
 #'                          set to p.
 #' @param ntree_factor      A number greater than 1.  \code{ntree} for each
-#'                          random is \code{ntree_factor} times the number
+#'                          random forest is \code{ntree_factor} times the number
 #'                          of features.  For each random forest, \code{ntree}
 #'                          is set to \code{max}(\code{min_ntree},
 #'                          \code{ntree_factor}*\code{p}).

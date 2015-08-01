@@ -25,7 +25,7 @@ set to p.}
 \item{min_ntree}{Minimum number of trees grown in each random forest.}
 
 \item{ntree_factor}{A number greater than 1.  \code{ntree} for each
-random is \code{ntree_factor} times the number
+random forest is \code{ntree_factor} times the number
 of features.  For each random forest, \code{ntree}
 is set to \code{max}(\code{min_ntree},
 \code{ntree_factor}*\code{p}).}

@@ -13,6 +13,7 @@ LazyData: true
 Imports:
     randomForest,
     foreach,
+    doRNG,
     doParallel,
     parallel,
     ggplot2
