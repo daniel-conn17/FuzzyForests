@@ -8,6 +8,7 @@
 #' @import randomForest
 #' @import foreach
 #' @import doParallel
+#' @import doRNG
 #' @import ggplot2
 #' @name fuzzyforest
 NULL

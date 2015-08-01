@@ -165,11 +165,10 @@ ff <- function(X, y, Z=NULL, module_membership,
     target = ceiling(num_features * keep_fraction)
     while (num_features >= target){
       if(num_processors > 1) {
-        rf = `%dopar%`(foreach(ntree = rep(ntree/num_processors, num_processors)
-                       , .combine = combine, .packages = 'randomForest'),
-                       #second argument to '%dopar%'
-                       randomForest(module , y, ntree = ntree, mtry = mtry,
-                       importance = TRUE, scale = FALSE, nodesize=nodesize))
+        rf = foreach(ntree = rep(ntree/num_processors, num_processors),
+                   .combine = combine, .packages = 'randomForest') %dorng% {
+                   randomForest(module, y, ntree = ntree, mtry = mtry,
+                   importance = TRUE, scale = FALSE, nodesize=nodesize) }
       }
       if(num_processors == 1) {
         rf <- randomForest(module, y, ntree = ntree, mtry = mtry,
