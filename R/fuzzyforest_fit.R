@@ -90,7 +90,7 @@
 #' #plot results
 #' modplot(ff_fit)
 #' }
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 ff <- function(X, y, Z=NULL, module_membership,
                         screen_params = screen_control(min_ntree=5000),
                         select_params = select_control(min_ntree=5000),
@@ -351,7 +351,7 @@ ff <- function(X, y, Z=NULL, module_membership,
 #' #plot results
 #' modplot(wff_fit)
 #' }
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 wff <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(p=6),
                         screen_params=screen_control(min_ntree=5000),
                         select_params=select_control(min_ntree=5000),

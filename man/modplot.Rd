@@ -17,9 +17,9 @@ modplot(object, main = NULL, xlab = NULL, ylab = NULL,
 \item{ylab}{Title for the y axis.}
 
 \item{module_labels}{Labels for the modules.  A data.frame
-or character matrix with first column giving
-the current name of module and second column giving
-the assigned name of each module.}
+                     or character matrix with first column giving
+                     the current name of module and second column giving
+                     the assigned name of each module.}
 }
 \description{
 The plot is designed
@@ -27,5 +27,8 @@ to depict the size of each module and what percentage of selected
 features fall into each module.  In particular, it is easy to
 determine which module is over-represented in the group of selected
 features.
+}
+\note{
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 

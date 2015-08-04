@@ -25,6 +25,6 @@ Predict method for fuzzy_forest object.
 Obtains predictions from fuzzy forest algorithm.
 }
 \note{
-This work was partially funded by NSF IIS 1251151.
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 

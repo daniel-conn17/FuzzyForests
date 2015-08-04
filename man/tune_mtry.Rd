@@ -35,9 +35,10 @@ An object of type tune_mtry.
 \description{
 Calculates mse over different values of mtry, returns a
 plot displaying how the mse changes, and returns the
-value of mtry with minimum mse.
+value of mtry with minimum mse.  This function still needs more work.
+It will be introduced at a later date.
 }
 \note{
-This work was partially funded by NSF IIS 1251151.
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 

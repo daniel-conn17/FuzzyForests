@@ -62,7 +62,7 @@ Fits fuzzy forest algorithm.  Returns
 fuzzy forest object.
 }
 \note{
-This work was partially funded by NSF IIS 1251151.
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 \examples{
 #ff requires that the partition of the covariates be previously determined.

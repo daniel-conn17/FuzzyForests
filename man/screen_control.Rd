@@ -39,7 +39,7 @@ controlling how feature selection
 will be carried out on each module.
 }
 \note{
-This work was partially funded by NSF IIS 1251151.
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 \examples{
 drop_fraction <- .25

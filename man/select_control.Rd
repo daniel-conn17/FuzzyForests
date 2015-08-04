@@ -40,7 +40,7 @@ will be carried out after features from different
 modules have been combined.
 }
 \note{
-This work was partially funded by NSF IIS 1251151.
+This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 \examples{
 drop_fraction <- .25

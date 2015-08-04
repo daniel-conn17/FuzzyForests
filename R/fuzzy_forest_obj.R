@@ -13,7 +13,7 @@
 #' @param selection_list    List of features retained at each iteration of
 #'                          selection step.
 #' @return An object of type fuzzy_forest.
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 fuzzy_forest <- function(feature_list, final_rf, module_membership,
                          WGCNA_object=NULL, survivor_list, selection_list) {
   out <- list()
@@ -37,7 +37,7 @@ fuzzy_forest <- function(feature_list, final_rf, module_membership,
 #' @param ... Additional arguments not in use.
 #' @return data.frame with list of selected features and variable
 #'          importance measures.
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 print.fuzzy_forest <- function(x, ...) {
   print(x$feature_list)
   if(!is.null(x$final_rf$test)) {
@@ -60,7 +60,7 @@ print.fuzzy_forest <- function(x, ...) {
 #'                 data.frame.
 #' @param ...      Additional arguments not in use.
 #' @return A vector of predictions
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 predict.fuzzy_forest <- function(object, new_data, ...) {
   out <- predict(object$final_rf, new_data)
   return(out)
@@ -82,6 +82,8 @@ predict.fuzzy_forest <- function(object, new_data, ...) {
 #'                      or character matrix with first column giving
 #'                      the current name of module and second column giving
 #'                      the assigned name of each module.
+#'
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
                               module_labels=NULL) {
   if(is.null(main)) {

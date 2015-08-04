@@ -2,9 +2,8 @@
 #'
 #' Calculates mse over different values of mtry, returns a
 #' plot displaying how the mse changes, and returns the
-#' value of mtry with minimum mse.
-#'
-#'
+#' value of mtry with minimum mse.  This function still needs more work.
+#' It will be introduced at a later date.
 #' @param object            An object of type fuzzy_forest.
 #' @param step_size         By default, mtry starts out high (equal to the
 #'                          number of features selected) and goes down by
@@ -22,7 +21,7 @@
 #' @param y                 The corresponding set of outcomes.
 #' @param main              Title of resulting plot.
 #' @return An object of type tune_mtry.
-#' @note This work was partially funded by NSF IIS 1251151.
+#' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 tune_mtry <- function(object, X, y, step_size=1, mtry_grid=NULL,
                       main=NULL) {
   if(is.null(main)) {
