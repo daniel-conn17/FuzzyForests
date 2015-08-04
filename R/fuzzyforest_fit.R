@@ -6,7 +6,7 @@
 #' @param X                 A data.frame.
 #'                          Each column corresponds to a feature vectors.
 #' @param y                 Response vector.  For classification, y should be a
-#'                          factor or a character.  For regression, y should be
+#'                          factor.  For regression, y should be
 #'                          numeric.
 #' @param Z                 A data.frame. Additional features that are not to be
 #'                          screened out at the screening step.
@@ -97,17 +97,20 @@ ff <- function(X, y, Z=NULL, module_membership,
                         final_ntree = 5000,
                         num_processors=1, nodesize, test_features=NULL,
                         test_y=NULL) {
-  if(!is.null(Z)) {
-    if (!is.data.frame(Z)) {
-      stop("Z must be a data.frame.",
-           call. = TRUE)
-    }
-  }
   if (!(is.vector(y, mode = "numeric") || is.factor(y))) {
     stop("y must be a numeric vector or factor")
   }
+  if(length(unique(y)) < 5) {
+    warning("y has 5 or fewer unique values?  We recommend classification
+            instead of regression?  For classification, y must be a factor.")
+  }
   if(!is.data.frame(X)) {
-    stop("X must be a data.frame.", call. = TRUE)
+    stop("X must be a data.frame.")
+  }
+  if(!is.null(Z)) {
+    if (!is.data.frame(Z)) {
+      stop("Z must be a data.frame.")
+    }
   }
   CLASSIFICATION <- is.factor(y)
   if(CLASSIFICATION == TRUE) {
@@ -275,7 +278,7 @@ ff <- function(X, y, Z=NULL, module_membership,
 #'                          all be numeric.  Non-numeric features may be input
 #'                          via Z.
 #' @param y                 Response vector.  For classification, y should be a
-#'                          factor or a character.  For regression, y should be
+#'                          factor.  For regression, y should be
 #'                          numeric.
 #' @param Z                 Additional features that are not to be screened out
 #'                          at the screening step.  WGCNA is not carried out on
@@ -357,23 +360,12 @@ wff <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(p=6),
                         select_params=select_control(min_ntree=5000),
                         final_ntree=500, num_processors=1, nodesize,
                         test_features=NULL, test_y=NULL) {
-  #browser()
   if ( !("package:WGCNA" %in% search()) ) {
-    stop("WGCNA must be loaded and attached. Type library(WGCNA) to do so.",
-      call. = FALSE)
-  }
-  if (!(is.vector(y) || is.factor(y))) {
-    stop("y must be vector or factor")
-  }
-  #WGCNA yields errors if X is an integer, here we convert integers to numeric.
-  integer_test <- sapply(X, is.integer)
-  if( sum(integer_test) > 0 ) {
-    ints <- which(integer_test == TRUE)
-    X[, ints] <- apply(X[, ints, drop=FALSE], 2, as.numeric)
+    stop("WGCNA must be loaded and attached. Type library(WGCNA) to do so.")
   }
   numeric_test <- sapply(X, is.numeric)
   if (sum(numeric_test) != dim(X)[2]) {
-    stop("The columns of X must be numeric.")
+    stop("To carry out WGCNA, the columns of X must be numeric.")
   }
   CLASSIFICATION <- is.factor(y)
   if(CLASSIFICATION == TRUE) {
