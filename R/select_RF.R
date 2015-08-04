@@ -2,6 +2,9 @@
 #'
 #' Fits iterative random forest algorithm.  Returns
 #' data.frame with variable importances and top rated features.
+#' For now this is an internal function that I've used to explore how
+#' recursive feature elimination works in simulations.  It may be exported at
+#' a later time.
 #' @param X                 A data.frame.
 #'                          Each column corresponds to a feature vectors.
 #' @param y                 Response vector.
@@ -77,9 +80,9 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
 }
 
 
-#' Carries out selection step of fuzzyforest algorithm.
+#' Carries out the selection step of fuzzyforest algorithm.
 #'
-#' Carries out selection step of fuzzyforest algorithm.  Returns
+#' Carries out the selection step of fuzzyforest algorithm.  Returns
 #' data.frame with variable importances and top rated features.
 #' @param X                 A data.frame.
 #'                          Each column corresponds to a feature vectors.
@@ -106,8 +109,7 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
 #' @return A data.frame with the top ranked features.
 #' @note This work was partially funded by NSF IIS 1251151.
 select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
-                      ntree_factor, min_ntree,
-                      num_processors, nodesize) {
+                      ntree_factor, min_ntree, num_processors, nodesize) {
   num_features <- ncol(X)
   selection_list <- list()
   CLASSIFICATION <- is.factor(y)
@@ -123,9 +125,6 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
     if(missing(nodesize)){
       nodesize <- 5
     }
-  }
-  if(num_processors > 1) {
-    #do nothing for now; hope that that the cluster from ff is used
   }
   num_features <- ncol(X)
   ntree <- max(num_features*ntree_factor, min_ntree)
