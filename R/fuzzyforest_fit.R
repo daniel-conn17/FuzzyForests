@@ -10,7 +10,8 @@
 #'                          numeric.
 #' @param Z                 A data.frame. Additional features that are not to be
 #'                          screened out at the screening step.
-#' @param module_membership A vector giving module membership of each feature.
+#' @param module_membership A character vector giving the module membership of
+#'                          each feature.
 #' @param screen_params     Parameters for screening step of fuzzy forests.
 #'                          See \code{\link[fuzzyforest]{screen_control}} for
 #'                          details. \code{screen_params} is an object of type
@@ -19,7 +20,7 @@
 #'                          See \code{\link[fuzzyforest]{select_control}} for details.
 #'                          \code{select_params} is an object of type
 #'                          \code{select_control}.
-#' @param final_ntree       Number trees grown in the final random forest.
+#' @param final_ntree       Number of trees grown in the final random forest.
 #'                          This random forest contains all selected features.
 #' @param num_processors    Number of processors used to fit random forests.
 #' @param nodesize          Minimum terminal nodesize. 1 if classification.
@@ -299,7 +300,7 @@ ff <- function(X, y, Z=NULL, module_membership,
 #'                          See \code{\link[fuzzyforest]{select_control}} for details.
 #'                          \code{select_params} is an object of type
 #'                          \code{select_control}.
-#' @param final_ntree       Number trees grown in the final random forest.
+#' @param final_ntree       Number of trees grown in the final random forest.
 #'                          This random forest contains all selected features.
 #' @param num_processors    Number of processors used to fit random forests.
 #' @param nodesize          Minimum terminal nodesize. 1 if classification.
