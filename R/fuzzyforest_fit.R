@@ -97,12 +97,14 @@ ff <- function(X, y, Z=NULL, module_membership,
                         final_ntree = 5000,
                         num_processors=1, nodesize, test_features=NULL,
                         test_y=NULL) {
+  CLASSIFICATION <- is.factor(y)
   if (!(is.vector(y, mode = "numeric") || is.factor(y))) {
     stop("y must be a numeric vector or factor")
   }
-  if(length(unique(y)) < 5) {
-    warning("y has 5 or fewer unique values?  We recommend classification
-            instead of regression?  For classification, y must be a factor.")
+  if( (!CLASSIFICATION) && (length(unique(y)) < 5) ) {
+    warning("y has 5 or fewer unique values?  In this case, we recommend
+            classification instead of regression.  For classification,
+            y must be a factor.")
   }
   if(!is.data.frame(X)) {
     stop("X must be a data.frame.")
@@ -112,7 +114,6 @@ ff <- function(X, y, Z=NULL, module_membership,
       stop("Z must be a data.frame.")
     }
   }
-  CLASSIFICATION <- is.factor(y)
   if(CLASSIFICATION == TRUE) {
     if(missing(nodesize)){
       nodesize <- 1
@@ -127,12 +128,14 @@ ff <- function(X, y, Z=NULL, module_membership,
   select_control <-  select_params
   module_list <- unique(module_membership)
   if(num_processors > 1) {
+    #set up parallel backend
     cl = parallel::makeCluster(num_processors)
     assign(".fuzzyforestparallelCluster", cl, pos = ".GlobalEnv")
     parallel::clusterCall(cl, library, package = "randomForest", character.only = TRUE)
     doParallel::registerDoParallel(cl)
-    on.exit(try( parallel::stopCluster(get(".fuzzyforestparallelCluster",
-                                 pos = ".GlobalEnv")), silent = TRUE))
+    #close parallel backend on exit
+    on.exit(try(parallel::stopCluster(get(".fuzzyforestparallelCluster",
+                pos = ".GlobalEnv")), silent=TRUE))
   }
   survivors <- vector('list', length(module_list))
   drop_fraction <- screen_control$drop_fraction

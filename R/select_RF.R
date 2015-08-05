@@ -93,13 +93,6 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
          names(selection_list[[i]]) <- c("feature_name", "variable_importance")
        }
      }
-     if(num_processors > 1) {
-       unregister <- function() {
-         env <- foreach:::.foreachGlobals
-         rm(list=ls(name=env), pos=env)
-       }
-       unregister()
-     }
      out <- list(feature_list, selection_list)
      return(out)
   }
@@ -182,7 +175,6 @@ iterative_RF <- function(X, y, drop_fraction, keep_fraction, mtry_factor,
       out <- cbind(features, mod_varlist)
     }
   }
-  parallel::stopCluster(cl)
   return(out)
 }
 
