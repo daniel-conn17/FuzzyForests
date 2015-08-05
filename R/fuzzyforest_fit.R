@@ -98,7 +98,7 @@ ff <- function(X, y, Z=NULL, module_membership,
                         num_processors=1, nodesize, test_features=NULL,
                         test_y=NULL) {
   CLASSIFICATION <- is.factor(y)
-  if (!(is.vector(y, mode = "numeric") || is.factor(y))) {
+  if ( !((mode(y)=="numeric") || is.factor(y)) ) {
     stop("y must be a numeric vector or factor")
   }
   if( (!CLASSIFICATION) && (length(unique(y)) < 5) ) {
@@ -368,7 +368,7 @@ wff <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(power=6),
   }
   numeric_test <- sapply(X, is.numeric)
   if (sum(numeric_test) != dim(X)[2]) {
-    stop("To carry out WGCNA, the columns of X must be numeric.")
+    stop("To carry out WGCNA, all columns of X must be numeric.")
   }
   CLASSIFICATION <- is.factor(y)
   if(CLASSIFICATION == TRUE) {
