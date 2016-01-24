@@ -3,3 +3,4 @@
 ^test.R$
 ^data-raw$
 ^cran_comments\.md$
+^.gitignore

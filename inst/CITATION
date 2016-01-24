@@ -9,5 +9,5 @@ citEntry(entry = "Article",
     paste("Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015).",
     "Fuzzy forests: a new WGCNA based random forest algorithm for
       correlated, high-dimensional data,", "Journal of Statistical Software,",
-      "Manuscript in progress"))
+      "Submitted, Under Review"))
 

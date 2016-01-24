@@ -17,15 +17,27 @@ After changing my ~/.Rprofile to include
 the second note went away for the local test 
 environment.
 
-Response to feedback:
+Response to feedback by Professor Ripley:
 
-  "This runs its examples for far too long.  I stopped at..."
-    Some code from the examples were not checked because
-    I believe that they take too long to run.
-    These examples should take between 5-10 seconds.
-  
-  "Given a reference for this 'new' algorithm."
-    A reference is given in CITATION.
+"high-dimensional (with a hypthen)."
+   A hyphen has been added.  
+   
+"Given a reference for this 'new' algorithm."
+    A reference is given in inst/CITATION.
     References are also supplied in the documentation
     for appropriate functions.
   
+"This runs its examples for far too long.  I stopped at
+
+auk% cat *.timings
+name    user    system  elapsed
+WGCNA_control   0       0       0       
+ff       31.657   0.591 150.787 
+screen_control  0.001   0.000   0.000   
+select_control  0.001   0.000   0.001
+The policies require a few seconds per example, not a few minutes.  I also 
+noticed multiple R processes running for minutes."
+    Some code from the examples are currently not checked     because I 
+    believe that they take too long to run.
+    These examples should take between 5-10 seconds.
+    Now multiple R processes should not be running. 

@@ -5,7 +5,9 @@
 #'
 #'
 #' @docType package
-#' @import randomForest
+#' @importFrom randomForest randomForest
+#' @importFrom randomForest importance
+#' @importFrom randomForest combine
 #' @import foreach
 #' @import doParallel
 #' @import doRNG

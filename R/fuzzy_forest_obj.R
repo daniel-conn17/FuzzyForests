@@ -164,7 +164,7 @@ modplot <- function(object, main=NULL, xlab=NULL, ylab=NULL,
   ###############
   imp_plot <- ggplot(importance_pct, aes(x=Module, y=Percentage, fill=Status)) +
               geom_bar(stat="identity") +
-              ggtitle(main) + labs(x = xlab, y = ylab) +
+              ggtitle(main) + ggplot2::labs(x = xlab, y = ylab) +
               theme(plot.title = element_text(lineheight=.8, face="bold"),
                     legend.title = element_blank())
   plot(imp_plot)
