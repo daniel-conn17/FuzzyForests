@@ -8,6 +8,8 @@
 #' @importFrom randomForest randomForest
 #' @importFrom randomForest importance
 #' @importFrom randomForest combine
+#' @importFrom graphics     plot
+#' @importFrom stats        predict
 #' @import foreach
 #' @import doParallel
 #' @import doRNG
