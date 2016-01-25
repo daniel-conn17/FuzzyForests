@@ -131,12 +131,10 @@ ff <- function(X, y, Z=NULL, module_membership,
   if(num_processors > 1) {
     #set up parallel backend
     cl = parallel::makeCluster(num_processors)
-    assign(".fuzzyforestparallelCluster", cl, pos = ".GlobalEnv")
     parallel::clusterCall(cl, library, package = "randomForest", character.only = TRUE)
     doParallel::registerDoParallel(cl)
     #close parallel backend on exit
-    on.exit(try(parallel::stopCluster(get(".fuzzyforestparallelCluster",
-                pos = ".GlobalEnv")), silent=TRUE))
+    on.exit(try(parallel::stopCluster(cl, silent=TRUE)))
   }
   survivors <- vector('list', length(module_list))
   drop_fraction <- screen_control$drop_fraction
