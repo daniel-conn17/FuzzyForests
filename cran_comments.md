@@ -37,7 +37,8 @@ screen_control  0.001   0.000   0.000
 select_control  0.001   0.000   0.001
 The policies require a few seconds per example, not a few minutes.  I also 
 noticed multiple R processes running for minutes."
-    Some code from the examples are currently not checked     because I 
-    believe that they take too long to run.
-    These examples should take between 5-10 seconds.
-    Now multiple R processes should not be running. 
+
+Some code from the examples are currently not checked because I 
+believe that they take too long to run.
+These examples should take between 5-10 seconds.
+Now multiple R processes should not be running. 
