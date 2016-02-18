@@ -1,5 +1,5 @@
 ## Test environments
-* local OS X install, R version 3.2.0 (2014-10-31)
+* local OS X install, R version 3.2.3 (2014-10-31)
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -30,7 +30,9 @@ select_control  0.001   0.000   0.001
 The policies require a few seconds per example, not a few minutes.  I also 
 noticed multiple R processes running for minutes."
 
-Some code from the examples are currently not checked because I 
+Some code from the examples is currently not checked because I 
 believe that they take too long to run.
 These examples should take between 5-10 seconds.
 Now multiple R processes should not be running. 
+
+

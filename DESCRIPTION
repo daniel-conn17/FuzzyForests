@@ -4,8 +4,16 @@ Version: 1.0.0
 Authors@R: c( person("Daniel", "Conn", role=c("aut", "cre"), email="djconn17@gmail.com"),
               person("Tuck", "Ngun", role="aut"),
               person(c("Christina M."), "Ramirez", role="aut"))
-Description: Fuzzy forests is a new algorithm for high-dimensional
-    classification and regression in the presence of correlated features.
+Description: Fuzzy forests, a new algorithm based on random forests,
+    is designed to reduce the bias seen in random forest feature selection
+    caused by the presence of correlated features.  Fuzzy forests uses
+    recursive feature elimination random forests to select
+    features from separate blocks of correlated features where the
+    correlation within each block of features is high
+    and the correlation between blocks of features is low.
+    One final random forest is fit using the surviving features.
+    This package fits random forests using the 'randomForest' package and
+    allows for easy use of 'WGCNA' to split features into distinct blocks.
 Depends:
     R (>= 3.2.3)
 License: GPL-3
@@ -19,6 +27,4 @@ Imports:
     ggplot2
 Suggests:
     WGCNA,
-    knitr
-VignetteBuilder: knitr
 RoxygenNote: 5.0.1

@@ -2,6 +2,7 @@
 #'
 #' Carries out the selection step of fuzzyforest algorithm.  Returns
 #' data.frame with variable importances and top rated features.
+#' @export
 #' @param X                 A data.frame.
 #'                          Each column corresponds to a feature vectors.
 #'                          Could include additional covariates not a part of

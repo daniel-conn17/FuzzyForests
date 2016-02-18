@@ -4,10 +4,10 @@ citEntry(entry = "Article",
   author = personList(as.person("Daniel Conn"), as.person("Tuck Ngun"), as.person("Christina M. Ramirez")),
   title = "Fuzzy forests: a new WGCNA based random forest algorithm for correlated, high-dimensional data",
   year = 2016,
-  journal = "BMC Bioinfomatics",
+  journal = "BMC Bioinformatics",
   textVersion =
-    paste("Daniel Conn, Tuck Ngun, Christina M. Ramirez (2016).",
+    paste("Daniel Conn, Tuck Ngun, Gang Li, Christina M. Ramirez (2016).",
     "Fuzzy forests: a new WGCNA based random forest algorithm for
-      correlated, high-dimensional data,", "Journal of Statistical Software,",
+      correlated, high-dimensional data,", "BMC Bioninformatics,",
       "Submitted, Under Review"))
 
