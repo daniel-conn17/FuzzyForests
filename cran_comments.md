@@ -30,9 +30,21 @@ select_control  0.001   0.000   0.001
 The policies require a few seconds per example, not a few minutes.  I also 
 noticed multiple R processes running for minutes."
 
-Some code from the examples is currently not checked because I 
-believe that they take too long to run.
-These examples should take between 5-10 seconds.
+Some code from the examples is currently not checked because I believe that they
+take too long to run. These examples should take between 5-10 seconds.
 Now multiple R processes should not be running. 
+
+Response to feedback from Professor Uwe Ligges:
+"Possibly mis-spelled words in DESCRIPTION:
+  RFE (10:51)
+  WGCNA (16:28)
+  randomForest (15:48)
+
+Please single quote software names."
+The acronym RFE was removed and WGCNA and randomForest are single quoted.
+
+"Package has a VignetteBuilder field but no prebuilt vignette index."
+VignetteBuilder has been removed
+
 
 
