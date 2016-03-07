@@ -54,7 +54,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
        if(num_processors > 1) {
          rf = foreach(ntree = rep(ntree/num_processors, num_processors),
                       .combine = combine, .packages = 'randomForest') %dorng% {
-                        randomForest(X , y, ntree = ntree, mtry = mtry,
+                        randomForest(current_X , y, ntree = ntree, mtry = mtry,
                                      importance = TRUE, scale = FALSE, nodesize=nodesize) }
        }
        if(num_processors == 1) {
