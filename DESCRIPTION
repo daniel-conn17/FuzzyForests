@@ -1,6 +1,6 @@
 Package: fuzzyforest
 Title: Fuzzy Forests
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c( person("Daniel", "Conn", role=c("aut", "cre"), email="djconn17@gmail.com"),
               person("Tuck", "Ngun", role="aut"),
               person(c("Christina M."), "Ramirez", role="aut"))
