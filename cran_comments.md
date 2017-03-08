@@ -5,8 +5,5 @@
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
 
-This update fixes a significant bug.  I apologize
-for submitting an update to the package about 3 weeks
-after the last submission. I know that it is poor
-practice to update an R package more than once every 1-2
-months. 
+This update fixes CITATION to reflect submission to Journal
+of Statistical Software instead of BMC Bioinfomatics.

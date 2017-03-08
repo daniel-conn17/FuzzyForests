@@ -106,6 +106,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
 #' For now this is an internal function that I've used to explore how
 #' recursive feature elimination works in simulations.  It may be exported at
 #' a later time.
+#' @export
 #' @param X                 A data.frame.
 #'                          Each column corresponds to a feature vectors.
 #' @param y                 Response vector.

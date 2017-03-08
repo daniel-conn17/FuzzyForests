@@ -130,11 +130,6 @@ moduleColors = labels2colors(net$colors)
 MEs = net$MEs;
 geneTree = net$dendrograms[[1]];
 
-
-
-
-
-
 #begin fuzzy forest analysis
 net = blockwiseModules(datExpr, power = 6,
                        TOMType = "unsigned", minModuleSize = 30,
