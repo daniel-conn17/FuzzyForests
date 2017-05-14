@@ -103,7 +103,7 @@ ff <- function(X, y, Z=NULL, module_membership,
     stop("y must be a numeric vector or factor")
   }
   if( (!CLASSIFICATION) && (length(unique(y)) < 5) ) {
-    warning("y has 5 or fewer unique values?  In this case, we recommend
+    warning("y has 5 or fewer unique values.  In this case, we recommend
             classification instead of regression.  For classification,
             y must be a factor.")
   }
@@ -180,13 +180,13 @@ ff <- function(X, y, Z=NULL, module_membership,
                            importance = TRUE, scale = FALSE,
                            nodesize = nodesize)
       }
-      var_importance <- importance(rf, type=1, scale=FALSE)
-      var_importance <- var_importance[order(var_importance[, 1],
-                                             decreasing=TRUE), ,drop=FALSE]
+      var_importance <- importance(rf, type=1, scale=FALSE)[, 1]
+      var_importance <- var_importance[order(var_importance,
+                                             decreasing=TRUE)]
       reduction <- ceiling(num_features*drop_fraction)
       if(num_features - reduction > target) {
-          trimmed_varlist <- var_importance[1:(num_features - reduction), ,drop=FALSE]
-          features <- row.names(trimmed_varlist)
+          trimmed_varlist <- var_importance[1:(num_features - reduction)]
+          features <- names(trimmed_varlist)
           module <- module[, which(names(module) %in% features)]
           num_features <- length(features)
           if(CLASSIFICATION == TRUE) {
@@ -199,8 +199,8 @@ ff <- function(X, y, Z=NULL, module_membership,
         }
       else {
           num_features <- target - 1
-          mod_varlist <- var_importance[, 1][1:target]
-          features <- row.names(var_importance)[1:target]
+          mod_varlist <- var_importance[1:target]
+          features <- names(var_importance)[1:target]
           survivors[[i]] <- cbind(features, mod_varlist)
           row.names(survivors[[i]]) <- NULL
           survivors[[i]] <- as.data.frame(survivors[[i]])
@@ -232,6 +232,7 @@ ff <- function(X, y, Z=NULL, module_membership,
   final_list[, 2] <- as.numeric(final_list[, 2])
   final_list <- cbind(final_list, rep(".", dim(final_list)[1]),
                      stringsAsFactors=FALSE)
+  browser()
   names(final_list)[3] <- c("module_membership")
   select_X <- names(X)[which(names(X) %in% final_list[, 1])]
   select_mods <- module_membership[which(names(X) %in% final_list[,1])]
@@ -364,6 +365,12 @@ wff <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(power=6),
                         test_features=NULL, test_y=NULL) {
   if ( !("package:WGCNA" %in% search()) ) {
     stop("WGCNA must be loaded and attached. Type library(WGCNA) to do so.")
+  }
+  if(class(X) != "data.frame"){
+    stop("X must be a data.frame")
+  }
+  if((!is.null(Z)) && (class(Z) != "data.frame")){
+    stop("Z must be a data.frame")
   }
   numeric_test <- sapply(X, is.numeric)
   if (sum(numeric_test) != dim(X)[2]) {
