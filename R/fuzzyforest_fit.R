@@ -130,7 +130,7 @@ ff <- function(X, y, Z=NULL, module_membership,
   module_list <- unique(module_membership)
   if(num_processors > 1) {
     #set up parallel backend
-    cl = parallel::makeCluster(num_processors)
+    cl <- parallel::makeCluster(num_processors)
     parallel::clusterCall(cl, library, package = "randomForest", character.only = TRUE)
     doParallel::registerDoParallel(cl)
     #close parallel backend on exit
@@ -167,10 +167,10 @@ ff <- function(X, y, Z=NULL, module_membership,
     #TUNING PARAMETER ntree_factor
     ntree <- max(num_features*ntree_factor, min_ntree)
     #TUNING PARAMETER keep_fraction
-    target = ceiling(num_features * keep_fraction)
+    target <- ceiling(num_features * keep_fraction)
     while (num_features >= target){
       if(num_processors > 1) {
-        rf = foreach(ntree = rep(ntree/num_processors, num_processors),
+        rf <- foreach(ntree = rep(ntree/num_processors, num_processors),
                    .combine = combine, .packages = 'randomForest') %dorng% {
                    randomForest(module, y, ntree = ntree, mtry = mtry,
                    importance = TRUE, scale = FALSE, nodesize=nodesize) }
