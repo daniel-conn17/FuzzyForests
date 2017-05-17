@@ -215,7 +215,7 @@ ff <- function(X, y, Z=NULL, module_membership,
   survivors <- as.data.frame(survivors, stringsAsFactors = FALSE)
   survivors[, 2] <- as.numeric(survivors[, 2])
   names(survivors) <- c("featureID", "Permutation VIM")
-  X_surv <- X[, names(X) %in% survivors[,1]]
+  X_surv <- X[, names(X) %in% survivors[, 1]]
   if(!is.null(Z)) {
     X_surv <- cbind(X_surv, Z, stringsAsFactors=FALSE)
   }
@@ -223,23 +223,18 @@ ff <- function(X, y, Z=NULL, module_membership,
   select_args <- c(select_args, select_control)
   names(select_args)[1:4] <- c("X", "y", "num_processors", "nodesize")
   select_results <- do.call("select_RF", select_args)
-  final_list <- select_results[[1]]
+  final_list <- select_results[[1]][, 1, drop=F]
   selection_list <- select_results[[2]]
-  final_list[, 2] <- round(as.numeric(final_list[, 2]), 4)
   row.names(final_list) <- NULL
-  colnames(final_list) <- c("feature_name", "variable_importance")
+  colnames(final_list) <- c("feature_name")
   final_list <- as.data.frame(final_list, stringsAsFactors=FALSE)
-  final_list[, 2] <- as.numeric(final_list[, 2])
-  final_list <- cbind(final_list, rep(".", dim(final_list)[1]),
-                     stringsAsFactors=FALSE)
-  browser()
-  names(final_list)[3] <- c("module_membership")
-  select_X <- names(X)[which(names(X) %in% final_list[, 1])]
-  select_mods <- module_membership[which(names(X) %in% final_list[,1])]
-  select_order <- final_list[, 1][which(final_list[,1] %in% names(X))]
-  select_mods <- select_mods[match(select_order, select_X)]
-  final_list[, 3][final_list[, 1] %in% names(X)] <- select_mods
+  #VIMs from last tree in recursive feature elimination should be
+  #replaced.
+  final_list <- cbind(final_list,
+                      matrix(rep(".", 2*dim(final_list)[1]), ncol=2),
+                      stringsAsFactors=F)
   final_X <- X[, names(X) %in% final_list[, 1], drop=FALSE]
+  #Some selected features may be from Z
   if(!is.null(Z)) {
     final_X <- cbind(final_X, Z[, names(Z) %in% final_list[, 1], drop=FALSE],
                      stringsAsFactors=FALSE)
@@ -260,6 +255,30 @@ ff <- function(X, y, Z=NULL, module_membership,
   final_rf <- randomForest(x=final_X, y=y, mtry=final_mtry, ntree=final_ntree,
                            importance=TRUE, nodesize=nodesize,
                            xtest=test_features, ytest=test_y)
+  final_importance <- importance(final_rf, type=1, scale = F)
+  final_list[, 1] <- row.names(final_importance)
+  final_list[, 2] <- final_importance[, 1]
+  #Now it's very important to associate the right module to the right
+  #feature.  The ordering must be correct.  This is made trickier by
+  #by the fact that when Z is not null, there exist elements in the
+  #the VIM list that aren't in X.
+
+  #select_X is a vector with selected features in order of X.
+  select_X <- names(X)[which(names(X) %in% final_list[, 1])]
+  #select_mods is a vector with associated module memberships in order of X.
+  select_mods <- module_membership[which(names(X) %in% final_list[, 1])]
+  #select_order is a vector with selected features given according to
+  #the order returned by randomForest.
+  select_order <- final_list[, 1][which(final_list[,1] %in% names(X))]
+  #select_mods is a vector with module memberships reordered according
+  #to the order returned by randomForest
+  select_mods <- select_mods[match(select_order, select_X)]
+  #Here is where the module membership is entered into the table.
+  #Note that for elements of Z, the entry will be "."
+  final_list[, 3][final_list[, 1] %in% names(X)] <- select_mods
+  names(final_list)[2:3] <- c("variable_importance", "module_membership")
+  #Reorder vims so that they are in decreasing order.
+  final_list <- final_list[order(final_list[, 2], decreasing=T), ]
   module_membership <- as.data.frame(cbind(names(X), module_membership),
                                      stringsAsFactors=FALSE)
   names(module_membership) <- c("feature_name", "module")

@@ -62,7 +62,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
                             importance = TRUE, scale = FALSE,
                             nodesize = nodesize)
        }
-       var_importance <- importance(rf, type=1, scale=FALSE)[,1]
+       var_importance <- importance(rf, type=1, scale=FALSE)[, 1]
        var_importance <- var_importance[order(var_importance,
                                               decreasing=TRUE)]
        selection_list[[i]] <- data.frame(names(var_importance),
