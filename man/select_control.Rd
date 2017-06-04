@@ -59,4 +59,3 @@ Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015). Fuzzy Forests: a New
 WGCNA Based Random Forest Algorithm for Correlated, High-Dimensional Data,
 Journal of Statistical Software, Manuscript in progress.
 }
-

@@ -73,7 +73,7 @@ select_RF <- function(X, y, drop_fraction, number_selected, mtry_factor,
        reduction <- ceiling(num_features*drop_fraction)
        if(num_features - reduction > target) {
          trimmed_varlist <- var_importance[1:(num_features - reduction)]
-         features <- row.names(trimmed_varlist)
+         features <- names(trimmed_varlist)
          current_X <- current_X[, which(names(current_X) %in% features), drop=FALSE]
          num_features <- length(features)
          if(CLASSIFICATION==TRUE) {

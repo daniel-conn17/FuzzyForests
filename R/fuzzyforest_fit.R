@@ -52,45 +52,53 @@
 #' #ff requires that the partition of the covariates be previously determined.
 #' #ff is handy if the user wants to test out multiple settings of WGCNA
 #' #prior to running fuzzy forests.
-#' library(WGCNA)
-#' library(randomForest)
-#' library(fuzzyforest)
-#' data(ctg)
-#' y <- ctg$NSP
-#' X <- ctg[, 2:22]
+#'library(mvtnorm)
+#'library(fuzzyforest)
+#'#Each row corresponds to one sample.
+#'gen_mod <- function(n, p, corr) {
+#'  sigma <- matrix(corr, nrow=p, ncol=p)
+#'  diag(sigma) <- 1
+#'  X <- rmvnorm(n, sigma=sigma)
+#'  return(X)
+#'}
 #'
-#' #set tuning parameters for WGCNA
-#' net = blockwiseModules(X, power = 6, minModuleSize = 1, nThreads = 1)
+#'gen_X <- function(n, mod_sizes, corr){
+#'  m <- length(mod_sizes)
+#'  X_list <- vector("list", length = m)
+#'  for(i in 1:m){
+#'    X_list[[i]] <- gen_mod(n, mod_sizes[i], corr[i]) 
+#'  }
+#'  X <- do.call("cbind", X_list)
+#'  return(X)
+#'}
 #'
+#'err_sd <- .5
+#'n <- 500
+#'mod_sizes <- rep(25, 4)
+#'corr <- rep(.8, 4)
+#'X <- gen_X(n, mod_sizes, corr)
+#'beta <- rep(0, 100)
+#'beta[c(1:4, 76:79)] <- 4
+#'y <- X%*%beta + rnorm(n, sd=err_sd)
+#'X <- as.data.frame(X)
 #'
-#' #extract module membership for each covariate
-#' module_membership <- net$colors
+#'cdist <- as.dist(1 - cor(X))
+#'fit <- hclust(cdist, method="ward.D")
+#'groups <- cutree(fit, k=4)
 #'
-#' #set tuning parameters
-#' mtry_factor <- 1; min_ntree <- 500;  drop_fraction <- .5; ntree_factor <- 1
-#' screen_params <- screen_control(drop_fraction = drop_fraction,
-#'                                 keep_fraction = .25, min_ntree = min_ntree,
-#'                                 ntree_factor = ntree_factor,
-#'                                 mtry_factor = mtry_factor)
-#' select_params <- select_control(drop_fraction = drop_fraction,
-#'                                 number_selected = 5,
-#'                                 min_ntree = min_ntree,
-#'                                 ntree_factor = ntree_factor,
-#'                                 mtry_factor = mtry_factor)
+#'screen_c <- screen_control(keep_fraction = .25)
+#'select_c <- select_control(number_selected = 10)
+#'\donttest{
+#'ff_fit <- ff(X, y, module_membership = groups,
+#'             screen_params = screen_c,
+#'             select_params = select_c,
+#'             final_ntree = 5000)
+#'#extract variable importance rankings
+#'vims <- ff_fit$feature_list
 #'
-#' #fit fuzzy forests
-#' \donttest{
-#' ff_fit <- ff(X, y, module_membership = module_membership,
-#'                 screen_params = screen_params,
-#'                 select_params = select_params,
-#'                 final_ntree = 500)
-#'
-#' #extract variable importance rankings
-#' vims <- ff_fit$feature_list
-#'
-#' #plot results
-#' modplot(ff_fit)
-#' }
+#'#plot results
+#'modplot(ff_fit)
+#'}
 #' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 ff <- function(X, y, Z=NULL, module_membership,
                         screen_params = screen_control(min_ntree=5000),

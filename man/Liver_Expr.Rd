@@ -22,4 +22,3 @@ extensive examples of WGCNA.
  }
 }
 \keyword{datasets}
-

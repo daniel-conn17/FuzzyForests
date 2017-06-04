@@ -10,6 +10,7 @@
 #' @importFrom randomForest combine
 #' @importFrom graphics     plot
 #' @importFrom stats        predict
+#' @importFrom mvtnorm      rmvnorm
 #' @import foreach
 #' @import doParallel
 #' @import doRNG
