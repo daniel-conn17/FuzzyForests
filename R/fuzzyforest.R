@@ -10,6 +10,10 @@
 #' @importFrom randomForest combine
 #' @importFrom graphics     plot
 #' @importFrom stats        predict
+#' @importFrom stats        model.frame
+#' @importFrom stats        model.response
+#' @importFrom stats        reformulate
+#' @importFrom stats        terms
 #' @importFrom mvtnorm      rmvnorm
 #' @import foreach
 #' @import doParallel

@@ -31,3 +31,9 @@ features.
 \note{
 This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
+\seealso{
+\code{\link[fuzzyforest]{ff}},
+         \code{\link[fuzzyforest]{wff}},
+         \code{\link[fuzzyforest]{ff.formula}},
+         \code{\link[fuzzyforest]{wff.formula}}
+}
