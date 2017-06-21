@@ -7,8 +7,8 @@
 \title{Fuzzy forests algorithm}
 \usage{
 \method{ff}{default}(X, y, Z = NULL, module_membership,
-  screen_params = screen_control(min_ntree = 5000),
-  select_params = select_control(min_ntree = 5000), final_ntree = 5000,
+  screen_params = screen_control(min_ntree = 500),
+  select_params = select_control(min_ntree = 500), final_ntree = 5000,
   num_processors = 1, nodesize, test_features = NULL, test_y = NULL, ...)
 
 ff(X, ...)
@@ -65,7 +65,8 @@ In particular it contains a data.frame with a list of selected the features.
 It also includes a random forest fit using the selected features.
 }
 \description{
-Fits the fuzzy forests algorithm
+Fits the fuzzy forests algorithm. Note that a formula interface for
+fuzzy forests also exists: \code{\link[fuzzyforest]{ff.formula}}.
 
 Fits fuzzy forest algorithm.
 }

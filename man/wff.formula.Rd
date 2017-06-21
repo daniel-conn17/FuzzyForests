@@ -51,6 +51,7 @@ select_params <- select_control(drop_fraction = drop_fraction,
                                 min_ntree = min_ntree,
                                 ntree_factor = ntree_factor,
                                 mtry_factor = mtry_factor)
+\donttest{
 wff_fit <- wff(y ~ ., data=dat,
                WGCNA_params = WGCNA_params,
                screen_params = screen_params,
@@ -62,6 +63,7 @@ vims <- wff_fit$feature_list
 
 #plot results
 modplot(wff_fit)
+}
 library(WGCNA)
 library(randomForest)
 library(fuzzyforest)
@@ -80,6 +82,7 @@ select_params <- select_control(drop_fraction = drop_fraction,
                                 min_ntree = min_ntree,
                                 ntree_factor = ntree_factor,
                                 mtry_factor = mtry_factor)
+\donttest{
 wff_fit <- wff(y ~ ., data=dat,
                WGCNA_params = WGCNA_params,
                screen_params = screen_params,
@@ -91,6 +94,7 @@ vims <- wff_fit$feature_list
 
 #plot results
 modplot(wff_fit)
+}
 }
 \seealso{
 \code{\link[fuzzyforest]{wff}},
