@@ -7,8 +7,8 @@
 \title{WGCNA based fuzzy forest algorithm}
 \usage{
 \method{wff}{default}(X, y, Z = NULL, WGCNA_params = WGCNA_control(power =
-  6), screen_params = screen_control(min_ntree = 5000),
-  select_params = select_control(min_ntree = 5000), final_ntree = 500,
+  6), screen_params = screen_control(min_ntree = 500),
+  select_params = select_control(min_ntree = 500), final_ntree = 5000,
   num_processors = 1, nodesize, test_features = NULL, test_y = NULL, ...)
 
 wff(X, ...)
@@ -73,7 +73,8 @@ It also includes the random forest fit using the selected features.
 }
 \description{
 Fits fuzzy forests using WGCNA to cluster features into
-distinct modules.
+distinct modules.  Note that a formula interface for
+WGCNA based fuzzy forests also exists: \code{\link[fuzzyforest]{wff.formula}}.
 }
 \note{
 This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
@@ -96,6 +97,7 @@ select_params <- select_control(drop_fraction = drop_fraction,
                                 min_ntree = min_ntree,
                                 ntree_factor = ntree_factor,
                                 mtry_factor = mtry_factor)
+\donttest{
 wff_fit <- wff(X, y, WGCNA_params = WGCNA_params,
                 screen_params = screen_params,
                 select_params = select_params,
@@ -106,6 +108,7 @@ vims <- wff_fit$feature_list
 
 #plot results
 modplot(wff_fit)
+}
 }
 \references{
 Leo Breiman (2001). Random Forests. Machine Learning, 45(1), 5-32.

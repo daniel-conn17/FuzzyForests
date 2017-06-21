@@ -99,9 +99,9 @@
 #' @export
 #' @rdname wff
 wff.default <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(power=6),
-                        screen_params=screen_control(min_ntree=5000),
-                        select_params=select_control(min_ntree=5000),
-                        final_ntree=500, num_processors=1, nodesize,
+                        screen_params=screen_control(min_ntree=500),
+                        select_params=select_control(min_ntree=500),
+                        final_ntree=5000, num_processors=1, nodesize,
                         test_features=NULL, test_y=NULL, ...) {
   if ( !("package:WGCNA" %in% search()) ) {
     stop("WGCNA must be loaded and attached. Type library(WGCNA) to do so.")
@@ -228,6 +228,7 @@ wff <- function(X, ...) {
 #'                                 min_ntree = min_ntree,
 #'                                 ntree_factor = ntree_factor,
 #'                                 mtry_factor = mtry_factor)
+#' \donttest{
 #' wff_fit <- wff(y ~ ., data=dat,
 #'                WGCNA_params = WGCNA_params,
 #'                screen_params = screen_params,
@@ -239,6 +240,7 @@ wff <- function(X, ...) {
 #'
 #' #plot results
 #' modplot(wff_fit)
+#' }
 wff.formula <- function(formula, data=NULL, ...){
   #code is stolen from randomForest by way of e1071
   if (!inherits(formula, "formula"))

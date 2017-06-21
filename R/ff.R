@@ -123,8 +123,8 @@
 #' @export
 #' @rdname ff
 ff.default <- function(X, y, Z=NULL, module_membership,
-                       screen_params = screen_control(min_ntree=5000),
-                       select_params = select_control(min_ntree=5000),
+                       screen_params = screen_control(min_ntree=500),
+                       select_params = select_control(min_ntree=500),
                        final_ntree = 5000,
                        num_processors=1, nodesize, test_features=NULL,
                        test_y=NULL, ...) {

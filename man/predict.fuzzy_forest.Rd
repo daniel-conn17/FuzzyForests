@@ -70,6 +70,7 @@ screen_c <- screen_control(keep_fraction = .25,
 select_c <- select_control(number_selected = 10,
                            ntree_factor = 1,
                            min_ntree = 250)
+\donttest{
 ff_fit <- ff(X, y, module_membership = groups,
              screen_params = screen_c,
              select_params = select_c,
@@ -85,6 +86,7 @@ preds <- predict(ff_fit, new_data=Xtest)
 
 #estimate test set error
 test_err <- sqrt(sum((ytest - preds)^2)/n)
+}
 }
 \seealso{
 \code{\link[fuzzyforest]{ff}},

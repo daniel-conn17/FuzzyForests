@@ -40,7 +40,7 @@
 #'                                 ntree_factor=ntree_factor)
 #' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 screen_control <- function(drop_fraction=.25, keep_fraction=.05,
-                           mtry_factor=1, min_ntree=5000, ntree_factor=10) {
+                           mtry_factor=1, min_ntree=500, ntree_factor=1) {
   obj <- list()
   obj$drop_fraction <- drop_fraction
   obj$keep_fraction <- keep_fraction
@@ -93,7 +93,7 @@ screen_control <- function(drop_fraction=.25, keep_fraction=.05,
 #'                                 ntree_factor=ntree_factor)
 #' @note This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 select_control <- function(drop_fraction=.25, number_selected=5,
-                              mtry_factor=1, min_ntree=5000, ntree_factor=10) {
+                              mtry_factor=1, min_ntree=500, ntree_factor=1) {
   obj <- list()
   obj$drop_fraction <- drop_fraction
   obj$number_selected <- number_selected

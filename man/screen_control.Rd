@@ -6,7 +6,7 @@
 Fuzzy Forests}
 \usage{
 screen_control(drop_fraction = 0.25, keep_fraction = 0.05,
-  mtry_factor = 1, min_ntree = 5000, ntree_factor = 10)
+  mtry_factor = 1, min_ntree = 500, ntree_factor = 1)
 }
 \arguments{
 \item{drop_fraction}{A number between 0 and 1.  Percentage of features
