@@ -14,6 +14,7 @@
 #' @importFrom stats        model.response
 #' @importFrom stats        reformulate
 #' @importFrom stats        terms
+#' @importFrom stats        rmultinom
 #' @importFrom mvtnorm      rmvnorm
 #' @import foreach
 #' @import doParallel
