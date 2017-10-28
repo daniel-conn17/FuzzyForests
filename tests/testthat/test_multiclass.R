@@ -4,7 +4,7 @@ library(mvtnorm)
 context("Multi-class Logistic Regression Simulation")
 
 test_that("Multi-Class Simulation", {
-
+ set.seed(5)
  multi_class_lr <- function(n, mod1_size=10, mod2_size=10, rho=.8, beta=NULL){
   #Say there are 5 significant features.
   #We will assume a multinomial logistic regression.
@@ -81,4 +81,16 @@ test_that("Multi-Class Simulation", {
              final_ntree = 500)
   expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
                rep(T, 4))
+  #Now test whether Z works
+  Z <- X[, 1:2]
+  Xsub <- X[, -c(1, 2)]
+  mod_membership <- factor(rep(1:2, times=c(8, 10)))
+  fit <- ff(Xsub, y, Z,
+            module_membership = mod_membership,
+            screen_params=sc,
+            select_params=se,
+            final_ntree=500)
+  expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
+               rep(T, 4))
+
 })
