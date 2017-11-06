@@ -4,6 +4,7 @@ library(mvtnorm)
 context("Regression Test")
 
 test_that("Regression Test", {
+  skip_on_cran()
   set.seed(5)
   regression_sim <- function(n, mod_sizes, beta_pos, beta_vals, rho=.8, sd=.1){
     sim_mod <- function(n,p,corr) {

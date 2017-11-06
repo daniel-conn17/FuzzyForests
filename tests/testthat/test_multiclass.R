@@ -4,6 +4,7 @@ library(mvtnorm)
 context("Multi-class Logistic Regression Simulation")
 
 test_that("Multi-Class Simulation", {
+ skip_on_cran()
  set.seed(5)
  multi_class_lr <- function(n, mod1_size=10, mod2_size=10, rho=.8, beta=NULL){
   #Say there are 5 significant features.

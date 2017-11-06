@@ -3,7 +3,6 @@
 \name{ff}
 \alias{ff}
 \alias{ff.default}
-\alias{ff}
 \title{Fuzzy forests algorithm}
 \usage{
 \method{ff}{default}(X, y, Z = NULL, module_membership,
@@ -155,3 +154,4 @@ Molecular Biology: Vol. 4: No. 1, Article 17
          \code{\link[fuzzyforest]{predict.fuzzy_forest}},
          \code{\link[fuzzyforest]{modplot}}
 }
+

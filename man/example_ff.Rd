@@ -12,3 +12,4 @@ seen in the vignette "fuzzyforest_introduction".
 }
 \keyword{R}
 \keyword{object}
+
