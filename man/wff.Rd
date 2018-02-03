@@ -3,6 +3,7 @@
 \name{wff}
 \alias{wff}
 \alias{wff.default}
+\alias{wff}
 \title{WGCNA based fuzzy forest algorithm}
 \usage{
 \method{wff}{default}(X, y, Z = NULL, WGCNA_params = WGCNA_control(power =
@@ -28,7 +29,7 @@ at the screening step.  WGCNA is not carried out on
 features in Z.}
 
 \item{WGCNA_params}{Parameters for WGCNA.
-See \code{\link[WGCNA]{blockwiseModules}} and
+See blockwiseModules function from WGCNA and
 \code{\link[fuzzyforest]{WGCNA_control}} for details.
 \code{WGCNA_params} is an object of type
 \code{WGCNA_control}.}
@@ -72,16 +73,13 @@ It also includes the random forest fit using the selected features.
 }
 \description{
 Fits fuzzy forests using WGCNA to cluster features into
-distinct modules.  Note that a formula interface for
+distinct modules.  Requires installation of WGCNA package. Note that a formula interface for
 WGCNA based fuzzy forests also exists: \code{\link[fuzzyforest]{wff.formula}}.
 }
 \note{
 This work was partially funded by NSF IIS 1251151 and AMFAR 8721SC.
 }
 \examples{
-library(WGCNA)
-library(randomForest)
-library(fuzzyforest)
 data(ctg)
 y <- ctg$NSP
 X <- ctg[, 2:22]
@@ -126,4 +124,3 @@ Molecular Biology: Vol. 4: No. 1, Article 17
          \code{\link[fuzzyforest]{predict.fuzzy_forest}},
          \code{\link[fuzzyforest]{modplot}}
 }
-

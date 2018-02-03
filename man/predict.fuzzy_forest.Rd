@@ -94,4 +94,3 @@ test_err <- sqrt(sum((ytest - preds)^2)/n)
          \code{\link[fuzzyforest]{ff.formula}},
          \code{\link[fuzzyforest]{wff.formula}}
 }
-

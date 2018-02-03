@@ -114,7 +114,7 @@ select_control <- function(drop_fraction=.25, number_selected=5,
 #' @export
 #' @param power             Power of adjacency function.
 #' @param ...               Additional arguments.
-#'                          See \code{\link[WGCNA]{blockwiseModules}} for
+#'                          See blockwiseModules from the WGCNA package for
 #'                          details.
 #' @return An object of type WGCNA_control.
 #' @references

@@ -118,4 +118,3 @@ Molecular Biology: Vol. 4: No. 1, Article 17
          \code{\link[fuzzyforest]{predict.fuzzy_forest}},
          \code{\link[fuzzyforest]{modplot}}
 }
-

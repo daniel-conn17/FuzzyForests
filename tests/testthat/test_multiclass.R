@@ -1,5 +1,4 @@
 library(fuzzyforest)
-library(WGCNA)
 library(mvtnorm)
 context("Multi-class Logistic Regression Simulation")
 
@@ -70,18 +69,21 @@ test_that("Multi-Class Simulation", {
             final_ntree=500)
   expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
                rep(T, 4))
-  fit <- wff(X, y,
-             screen_params = sc,
-             select_params = se,
-             final_ntree = 500)
-  expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
-               rep(T, 4))
-  fit <- wff(y ~ ., data = dat,
-             screen_params = sc,
-             select_params = se,
-             final_ntree = 500)
-  expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
-               rep(T, 4))
+  if (requireNamespace("WGCNA", quietly = T)) {
+      library(WGCNA)
+      fit <- wff(X, y,
+                 screen_params = sc,
+                 select_params = se,
+                 final_ntree = 500)
+      expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
+                   rep(T, 4))
+      fit <- wff(y ~ ., data = dat,
+                 screen_params = sc,
+                 select_params = se,
+                 final_ntree = 500)
+      expect_equal(paste("V", 1:4, sep="") %in% fit$feature_list$feature_name,
+                   rep(T, 4))
+  }
   #Now test whether Z works
   Z <- X[, 1:2]
   Xsub <- X[, -c(1, 2)]

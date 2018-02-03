@@ -1,5 +1,5 @@
 #' Fits fuzzy forests using WGCNA to cluster features into
-#' distinct modules.  Note that a formula interface for
+#' distinct modules.  Requires installation of WGCNA package. Note that a formula interface for
 #' WGCNA based fuzzy forests also exists: \code{\link[fuzzyforest]{wff.formula}}.
 #'
 #' @title WGCNA based fuzzy forest algorithm
@@ -17,7 +17,7 @@
 #'                          at the screening step.  WGCNA is not carried out on
 #'                          features in Z.
 #' @param WGCNA_params      Parameters for WGCNA.
-#'                          See \code{\link[WGCNA]{blockwiseModules}} and
+#'                          See blockwiseModules function from WGCNA and
 #'                          \code{\link[fuzzyforest]{WGCNA_control}} for details.
 #'                          \code{WGCNA_params} is an object of type
 #'                          \code{WGCNA_control}.
@@ -59,9 +59,6 @@
 #' Co-Expression Network Analysis", Statistical Applications in Genetics and
 #' Molecular Biology: Vol. 4: No. 1, Article 17
 #' @examples
-#' library(WGCNA)
-#' library(randomForest)
-#' library(fuzzyforest)
 #' data(ctg)
 #' y <- ctg$NSP
 #' X <- ctg[, 2:22]
@@ -103,49 +100,51 @@ wff.default <- function(X, y, Z=NULL, WGCNA_params=WGCNA_control(power=6),
                         select_params=select_control(min_ntree=500),
                         final_ntree=5000, num_processors=1, nodesize,
                         test_features=NULL, test_y=NULL, ...) {
-  if ( !("package:WGCNA" %in% search()) ) {
-    stop("WGCNA must be loaded and attached. Type library(WGCNA) to do so.")
+  if (!requireNamespace("WGCNA", quietly = T)) {
+      stop("WGCNA must be installed.")
   }
-  if(class(X) != "data.frame"){
-    stop("X must be a data.frame")
+  else{
+      if(class(X) != "data.frame"){
+        stop("X must be a data.frame")
+      }
+      if((!is.null(Z)) && (class(Z) != "data.frame")){
+        stop("Z must be a data.frame")
+      }
+      numeric_test <- sapply(X, is.numeric)
+      if (sum(numeric_test) != dim(X)[2]) {
+        stop("To carry out WGCNA, all columns of X must be numeric.")
+      }
+      CLASSIFICATION <- is.factor(y)
+      if(CLASSIFICATION == TRUE) {
+        if(missing(nodesize)){
+          nodesize <- 1
+        }
+      }
+      if(CLASSIFICATION == FALSE) {
+        if(missing(nodesize)){
+          nodesize <- 5
+        }
+      }
+      WGCNA_control <- WGCNA_params
+      screen_control <- screen_params
+      select_control <-  select_params
+      WGCNA_args <- list(X, WGCNA_control$power)
+      WGCNA_args <- c(WGCNA_args, WGCNA_control$extra_args)
+      names(WGCNA_args) <- c("datExpr", "power", names(WGCNA_control$extra_args))
+      bwise <- do.call("blockwiseModules", WGCNA_args)
+      module_membership <- bwise$colors
+      screen_drop_fraction <- screen_control$drop_fraction
+      screen_keep_fraction <- screen_control$keep_fraction
+      screen_mtry_factor <- screen_control$mtry_factor
+      screen_ntree_factor <- screen_control$ntree_factor
+      screen_min_ntree <- screen_control$min_ntree
+      out <- ff(X, y, Z, module_membership,
+                        screen_control, select_control, final_ntree,
+                        num_processors, nodesize=nodesize,
+                        test_features=test_features, test_y=test_y)
+      out$WGCNA_object <- bwise
+      return(out)
   }
-  if((!is.null(Z)) && (class(Z) != "data.frame")){
-    stop("Z must be a data.frame")
-  }
-  numeric_test <- sapply(X, is.numeric)
-  if (sum(numeric_test) != dim(X)[2]) {
-    stop("To carry out WGCNA, all columns of X must be numeric.")
-  }
-  CLASSIFICATION <- is.factor(y)
-  if(CLASSIFICATION == TRUE) {
-    if(missing(nodesize)){
-      nodesize <- 1
-    }
-  }
-  if(CLASSIFICATION == FALSE) {
-    if(missing(nodesize)){
-      nodesize <- 5
-    }
-  }
-  WGCNA_control <- WGCNA_params
-  screen_control <- screen_params
-  select_control <-  select_params
-  WGCNA_args <- list(X,WGCNA_control$power)
-  WGCNA_args <- c(WGCNA_args, WGCNA_control$extra_args)
-  names(WGCNA_args) <- c("datExpr", "power", names(WGCNA_control$extra_args))
-  bwise <- do.call("blockwiseModules", WGCNA_args)
-  module_membership <- bwise$colors
-  screen_drop_fraction <- screen_control$drop_fraction
-  screen_keep_fraction <- screen_control$keep_fraction
-  screen_mtry_factor <- screen_control$mtry_factor
-  screen_ntree_factor <- screen_control$ntree_factor
-  screen_min_ntree <- screen_control$min_ntree
-  out <- ff(X, y, Z, module_membership,
-                    screen_control, select_control, final_ntree,
-                    num_processors, nodesize=nodesize,
-                    test_features=test_features, test_y=test_y)
-  out$WGCNA_object <- bwise
-  return(out)
 }
 
 #' @export
@@ -166,9 +165,6 @@ wff <- function(X, ...) {
 #' In particular it contains a data.frame with list of selected features.
 #' It also includes the random forest fit using the selected features.
 #' @examples
-#' library(WGCNA)
-#' library(randomForest)
-#' library(fuzzyforest)
 #' data(ctg)
 #' y <- ctg$NSP
 #' X <- ctg[, 2:22]
@@ -210,9 +206,6 @@ wff <- function(X, ...) {
 #'          \code{\link[fuzzyforest]{predict.fuzzy_forest}},
 #'          \code{\link[fuzzyforest]{modplot}}
 #' @examples
-#' library(WGCNA)
-#' library(randomForest)
-#' library(fuzzyforest)
 #' data(ctg)
 #' y <- ctg$NSP
 #' X <- ctg[, 2:22]

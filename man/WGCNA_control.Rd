@@ -11,7 +11,7 @@ WGCNA_control(power = 6, ...)
 \item{power}{Power of adjacency function.}
 
 \item{...}{Additional arguments.
-See \code{\link[WGCNA]{blockwiseModules}} for
+See blockwiseModules from the WGCNA package for
 details.}
 }
 \value{
@@ -34,4 +34,3 @@ Bin Zhang and Steve Horvath (2005) "A General Framework for Weighted Gene
 Co-Expression Network Analysis", Statistical Applications in Genetics and
 Molecular Biology: Vol. 4: No. 1, Article 17
 }
-

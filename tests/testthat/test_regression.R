@@ -1,5 +1,4 @@
 library(fuzzyforest)
-library(WGCNA)
 library(mvtnorm)
 context("Regression Test")
 
@@ -56,18 +55,21 @@ test_that("Regression Test", {
             final_ntree=500)
   expect_equal(paste("V", c(1:3, 31:33), sep="") %in% fit$feature_list$feature_name,
                rep(T, 6))
-  fit <- wff(X, y,
-             screen_params = sc,
-             select_params = se,
-             final_ntree = 500)
-  expect_equal(paste("V", c(1:3, 31:33), sep="") %in% fit$feature_list$feature_name,
-               rep(T, 6))
-  fit <- wff(y ~ ., data = dat,
-             screen_params = sc,
-             select_params = se,
-             final_ntree = 500)
-  expect_equal(paste("V", c(1:3, 31:33), sep="") %in% fit$feature_list$feature_name,
-               rep(T, 6))
+  if (requireNamespace("WGCNA", quietly = T)) {
+      library(WGCNA)
+      fit <- wff(X, y,
+                 screen_params = sc,
+                 select_params = se,
+                 final_ntree = 500)
+      expect_equal(paste("V", c(1:3, 31:33), sep="") %in% fit$feature_list$feature_name,
+                   rep(T, 6))
+      fit <- wff(y ~ ., data = dat,
+                 screen_params = sc,
+                 select_params = se,
+                 final_ntree = 500)
+      expect_equal(paste("V", c(1:3, 31:33), sep="") %in% fit$feature_list$feature_name,
+                   rep(T, 6))
+  }
   #Now test whether Z works
   Z <- X[, 1:2]
   Xsub <- X[, -c(1, 2)]

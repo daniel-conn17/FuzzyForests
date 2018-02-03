@@ -1,6 +1,6 @@
 Package: fuzzyforest
 Title: Fuzzy Forests
-Version: 1.0.3
+Version: 1.0.5
 Authors@R: c( person("Daniel", "Conn", role=c("aut", "cre"), email="djconn17@gmail.com"),
               person("Tuck", "Ngun", role="aut"),
               person(c("Christina M."), "Ramirez", role="aut"))
@@ -29,4 +29,4 @@ Imports:
 Suggests:
     WGCNA,
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

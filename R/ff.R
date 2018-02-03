@@ -206,11 +206,11 @@ ff.default <- function(X, y, Z=NULL, module_membership,
                                      importance = TRUE, scale = FALSE, nodesize=nodesize) }
       }
       if(num_processors == 1) {
-        rf <- randomForest(module, y, ntree = ntree, mtry = mtry,
-                           importance = TRUE, scale = FALSE,
-                           nodesize = nodesize)
+        rf <- randomForest::randomForest(module, y, ntree = ntree, mtry = mtry,
+                                         importance = TRUE, scale = FALSE,
+                                         nodesize = nodesize)
       }
-      var_importance <- importance(rf, type=1, scale=FALSE)[, 1]
+      var_importance <- randomForest::importance(rf, type=1, scale=FALSE)[, 1]
       var_importance <- var_importance[order(var_importance,
                                              decreasing=TRUE)]
       reduction <- ceiling(num_features*drop_fraction)
@@ -282,10 +282,10 @@ ff.default <- function(X, y, Z=NULL, module_membership,
     test_features <- test_features[, which(names(test_features) %in%
                                              names(final_X))]
   }
-  final_rf <- randomForest(x=final_X, y=y, mtry=final_mtry, ntree=final_ntree,
-                           importance=TRUE, nodesize=nodesize,
-                           xtest=test_features, ytest=test_y)
-  final_importance <- importance(final_rf, type=1, scale = F)
+  final_rf <- randomForest::randomForest(x=final_X, y=y, mtry=final_mtry, ntree=final_ntree,
+                            importance=TRUE, nodesize=nodesize,
+                            xtest=test_features, ytest=test_y)
+  final_importance <- randomForest::importance(final_rf, type=1, scale = F)
   final_list[, 1] <- row.names(final_importance)
   final_list[, 2] <- final_importance[, 1]
   #Now it's very important to associate the right module to the right
