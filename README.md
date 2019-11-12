@@ -15,14 +15,12 @@ must be installed.  However, `WGCNA` requires the installation of a few
 packages form bioConductor.  To install `WGCNA`, type the following lines
 into the console:
 ```{r}
-setRepositories(ind=1:2)  
-install.packages("WGCNA")
-source("http://bioconductor.org/biocLite.R")
-biocLite("AnnotationDbi", type="source")
-biocLite("GO.db")
+install.packages("BiocManager")
+BiocManager::install("WGCNA")
 ```
+
 If further issues with the installation of `WGCNA` arise see the `WGCNA`
-website: http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/index.html#manualInstall
+website: https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/
 
 
 # Acknowledgments
