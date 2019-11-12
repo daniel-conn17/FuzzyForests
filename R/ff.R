@@ -40,15 +40,20 @@
 #' In particular it contains a data.frame with a list of selected the features.
 #' It also includes a random forest fit using the selected features.
 #' @references
-#' Leo Breiman (2001). Random Forests. Machine Learning, 45(1), 5-32.
+#' Conn, D., Ngun, T., Ramirez C.M., Li, G. (2019).
+#' "Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data."
+#' \emph{Journal of Statistical Software}, \strong{91}(9).
+#' \doi{doi:10.18637/jss.v091.i09}
 #'
-#' Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015). Fuzzy Forests: a New
-#' WGCNA Based Random Forest Algorithm for Correlated, High-Dimensional Data,
-#' Journal of Statistical Software, Manuscript in progress.
+#' Breiman, L. (2001).
+#' "Random Forests."
+#' \emph{Machine Learning}, \strong{45}(1), 5-32.
+#' \doi{doi:10.1023/A:1010933404324}
 #'
-#' Bin Zhang and Steve Horvath (2005) "A General Framework for Weighted Gene
-#' Co-Expression Network Analysis", Statistical Applications in Genetics and
-#' Molecular Biology: Vol. 4: No. 1, Article 17
+#' Zhang, B. and Horvath, S. (2005).
+#' "A General Framework for Weighted Gene Co-Expression Network Analysis."
+#' \emph{Statistical Applications in Genetics and Molecular Biology}, \strong{4}(1).
+#' \doi{doi:10.2202/1544-6115.1128}
 #' @seealso \code{\link[fuzzyforest]{ff.formula}},
 #'          \code{\link[fuzzyforest]{print.fuzzy_forest}},
 #'          \code{\link[fuzzyforest]{predict.fuzzy_forest}},
@@ -235,6 +240,7 @@ ff.default <- function(X, y, Z=NULL, module_membership,
         row.names(survivors[[i]]) <- NULL
         survivors[[i]] <- as.data.frame(survivors[[i]])
         survivors[[i]][, 1] <- as.character(survivors[[i]][, 1])
+        )
         survivors[[i]][, 2] <- as.numeric(as.character(survivors[[i]][, 2]))
       }
     }
@@ -340,15 +346,20 @@ ff <- function(X, ...) {
 #' In particular it contains a data.frame with list of selected features.
 #' It also includes the random forest fit using the selected features.
 #' @references
-#' Leo Breiman (2001). Random Forests. Machine Learning, 45(1), 5-32.
+#' Conn, D., Ngun, T., Ramirez C.M., Li, G. (2019).
+#' "Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data."
+#' \emph{Journal of Statistical Software}, \strong{91}(9).
+#' \doi{doi:10.18637/jss.v091.i09}
 #'
-#' Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015). Fuzzy Forests: a New
-#' WGCNA Based Random Forest Algorithm for Correlated, High-Dimensional Data,
-#' Journal of Statistical Software, Manuscript in progress.
+#' Breiman, L. (2001).
+#' "Random Forests."
+#' \emph{Machine Learning}, \strong{45}(1), 5-32.
+#' \doi{doi:10.1023/A:1010933404324}
 #'
-#' Bin Zhang and Steve Horvath (2005) "A General Framework for Weighted Gene
-#' Co-Expression Network Analysis", Statistical Applications in Genetics and
-#' Molecular Biology: Vol. 4: No. 1, Article 17
+#' Zhang, B. and Horvath, S. (2005).
+#' "A General Framework for Weighted Gene Co-Expression Network Analysis."
+#' \emph{Statistical Applications in Genetics and Molecular Biology}, \strong{4}(1).
+#' \doi{doi:10.2202/1544-6115.1128}
 #' @seealso \code{\link[fuzzyforest]{ff}},
 #'          \code{\link[fuzzyforest]{print.fuzzy_forest}},
 #'          \code{\link[fuzzyforest]{predict.fuzzy_forest}},

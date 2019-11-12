@@ -5,8 +5,8 @@
 \title{Set Parameters for Selection Step of
 Fuzzy Forests}
 \usage{
-select_control(drop_fraction = 0.25, number_selected = 5, mtry_factor = 1,
-  min_ntree = 500, ntree_factor = 1)
+select_control(drop_fraction = 0.25, number_selected = 5,
+  mtry_factor = 1, min_ntree = 500, ntree_factor = 1)
 }
 \arguments{
 \item{drop_fraction}{A number between 0 and 1.  Percentage of features
@@ -55,7 +55,8 @@ select_params <- select_control(drop_fraction=drop_fraction,
                                 ntree_factor=ntree_factor)
 }
 \references{
-Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015). Fuzzy Forests: a New
-WGCNA Based Random Forest Algorithm for Correlated, High-Dimensional Data,
-Journal of Statistical Software, Manuscript in progress.
+Conn, D., Ngun, T., Ramirez C.M., Li, G. (2019).
+"Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data."
+\emph{Journal of Statistical Software}, \strong{91}(9).
+\doi{doi:10.18637/jss.v091.i09}
 }

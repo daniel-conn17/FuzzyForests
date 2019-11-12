@@ -4,8 +4,8 @@
 \alias{fuzzy_forest}
 \title{Fuzzy Forest Object}
 \usage{
-fuzzy_forest(feature_list, final_rf, module_membership, WGCNA_object = NULL,
-  survivor_list, selection_list)
+fuzzy_forest(feature_list, final_rf, module_membership,
+  WGCNA_object = NULL, survivor_list, selection_list)
 }
 \arguments{
 \item{feature_list}{List of selected features along with variable

@@ -11,7 +11,7 @@ data(Liver_Expr)
 \description{
 A data set containing gene expression levels in liver tissue from female
 mice. This data set is a subset of the liver expression data set
-from the WGCNA tutorial \url{http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/}.
+from the WGCNA tutorial \url{https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/}.
 The tutorial contains further information about the data set as well as
 extensive examples of WGCNA.
 }

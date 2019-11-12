@@ -30,7 +30,13 @@ WGCNA_params <- WGCNA_control(p=7, minModuleSize=30, TOMType = "unsigned",
                               numericLabels = TRUE, pamRespectsDendro = FALSE)
 }
 \references{
-Bin Zhang and Steve Horvath (2005) "A General Framework for Weighted Gene
-Co-Expression Network Analysis", Statistical Applications in Genetics and
-Molecular Biology: Vol. 4: No. 1, Article 17
+Conn, D., Ngun, T., Ramirez C.M., Li, G. (2019).
+"Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data."
+\emph{Journal of Statistical Software}, \strong{91}(9).
+\doi{doi:10.18637/jss.v091.i09}
+
+Zhang, B. and Horvath, S. (2005).
+"A General Framework for Weighted Gene Co-Expression Network Analysis."
+\emph{Statistical Applications in Genetics and Molecular Biology}, \strong{4}(1).
+\doi{doi:10.2202/1544-6115.1128}
 }

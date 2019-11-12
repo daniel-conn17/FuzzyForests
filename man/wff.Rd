@@ -3,13 +3,14 @@
 \name{wff}
 \alias{wff}
 \alias{wff.default}
-\alias{wff}
 \title{WGCNA based fuzzy forest algorithm}
 \usage{
-\method{wff}{default}(X, y, Z = NULL, WGCNA_params = WGCNA_control(power =
-  6), screen_params = screen_control(min_ntree = 500),
+\method{wff}{default}(X, y, Z = NULL,
+  WGCNA_params = WGCNA_control(power = 6),
+  screen_params = screen_control(min_ntree = 500),
   select_params = select_control(min_ntree = 500), final_ntree = 5000,
-  num_processors = 1, nodesize, test_features = NULL, test_y = NULL, ...)
+  num_processors = 1, nodesize, test_features = NULL, test_y = NULL,
+  ...)
 
 wff(X, ...)
 }
@@ -108,15 +109,20 @@ modplot(wff_fit)
 }
 }
 \references{
-Leo Breiman (2001). Random Forests. Machine Learning, 45(1), 5-32.
+Conn, D., Ngun, T., Ramirez C.M., Li, G. (2019).
+"Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data."
+\emph{Journal of Statistical Software}, \strong{91}(9).
+\doi{doi:10.18637/jss.v091.i09}
 
-Daniel Conn, Tuck Ngun, Christina M. Ramirez (2015). Fuzzy Forests: a New
-WGCNA Based Random Forest Algorithm for Correlated, High-Dimensional Data,
-Journal of Statistical Software, Manuscript in progress.
+Breiman, L. (2001).
+"Random Forests."
+\emph{Machine Learning}, \strong{45}(1), 5-32.
+\doi{doi:10.1023/A:1010933404324}
 
-Bin Zhang and Steve Horvath (2005) "A General Framework for Weighted Gene
-Co-Expression Network Analysis", Statistical Applications in Genetics and
-Molecular Biology: Vol. 4: No. 1, Article 17
+Zhang, B. and Horvath, S. (2005).
+"A General Framework for Weighted Gene Co-Expression Network Analysis."
+\emph{Statistical Applications in Genetics and Molecular Biology}, \strong{4}(1).
+\doi{doi:10.2202/1544-6115.1128}
 }
 \seealso{
 \code{\link[fuzzyforest]{wff.formula}},

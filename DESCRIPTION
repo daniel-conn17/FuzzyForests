@@ -1,6 +1,6 @@
 Package: fuzzyforest
 Title: Fuzzy Forests
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: c( person("Daniel", "Conn", role=c("aut", "cre"), email="djconn17@gmail.com"),
               person("Tuck", "Ngun", role="aut"),
               person(c("Christina M."), "Ramirez", role="aut"))
@@ -14,6 +14,8 @@ Description: Fuzzy forests, a new algorithm based on random forests,
     One final random forest is fit using the surviving features.
     This package fits random forests using the 'randomForest' package and
     allows for easy use of 'WGCNA' to split features into distinct blocks.
+    See D. Conn, Ngun, T., C. Ramirez, and G. Li (2019) <doi:10.18637/jss.v091.i09>
+    for further details.
 Depends:
     R (>= 3.2.1)
 License: GPL-3
@@ -29,4 +31,4 @@ Imports:
 Suggests:
     WGCNA,
     testthat
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

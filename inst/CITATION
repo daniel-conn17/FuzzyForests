@@ -1,13 +1,20 @@
-citHeader("To cite package 'fuzzyforest' in publication use:")
-
-citEntry(entry = "Article",
-  author = personList(as.person("Daniel Conn"), as.person("Tuck Ngun"), as.person("Christina M. Ramirez")),
-  title = "Fuzzy Forests: Extending Random Forests for Correlated, High-Dimensional Data",
-  year = 2016,
-  journal = "Journal of Statistical Software",
-  textVersion =
-    paste("Daniel Conn, Tuck Ngun, Gang Li, Christina M. Ramirez (2016).",
-    "Fuzzy forests: a new WGCNA based random forest algorithm for
-      correlated, high-dimensional data,", "Journal of Statistical Software,",
-      "Submitted, Under Review"))
+bibentry(bibtype = "Article",
+  title        = "Fuzzy Forests: Extending Random Forest Feature Selection for Correlated, High-Dimensional Data",
+  author       = c(person(given = "Daniel",
+                          family = "Conn",
+                          email = "djconn17@gmail.com"),
+                   person(given = "Tuck",
+                          family = "Ngun"),
+                   person(given = "Gang",
+                          family = "Li"),
+                   person(given = c("Christina", "M."),
+                          family = "Ramirez")),
+  journal      = "Journal of Statistical Software",
+  year         = "2019",
+  volume       = "91",
+  number       = "9",
+  pages        = "1--25",
+  doi          = "10.18637/jss.v091.i09",
+  header       = "To cite fuzzyforest in publications use:"
+)
 
